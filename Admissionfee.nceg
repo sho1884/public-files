@@ -1,0 +1,55 @@
+# NeoCEG Graph Definition
+# Exported: 2026-02-07T00:09:30.697Z
+
+# Propositions (命題)
+p1: "区分1は個人である" [observable]
+p2: "区分1は団体である" [observable]
+p3: "区分2は65歳以上である" [observable]
+p4: "区分2は一般である" [observable]
+p5: "区分2は小学生である" [observable]
+p6: "区分2は6歳未満である" [observable]
+p7: "県内在住Yesである" [observable]
+p8: "県内在住Noである" [observable]
+p9: "県内在住ではない小学生" [observable]
+p10: "県内在住の小学生" [observable]
+p11: "入場料は1200円である" [observable]
+p12: "入場料は1000円である" [observable]
+p13: "入場料は600円である" [observable]
+p14: "入場料は500円である" [observable]
+p15: "入場料は無料である" [observable]
+
+# Logical Relations (論理式)
+p9 := p5 AND p8
+p10 := p5 AND p7
+p11 := p1 AND p4
+p12 := p2 AND p4
+p13 := p1 AND p9
+p14 := p2 AND p9
+p15 := p3 OR p6 OR p10
+
+# Constraints
+ONE(p1, p2)
+ONE(p3, p4, p5, p6)
+ONE(p7, p8)
+
+# Layout
+@layout {
+  p1: (100, 100)
+  p2: (100, 180)
+  p3: (100, 280)
+  p4: (100, 360)
+  p5: (100, 440)
+  p6: (100, 520)
+  p7: (100, 620)
+  p8: (100, 700)
+  p9: (330, 480)
+  p10: (345, 660)
+  p11: (585, 135)
+  p12: (585, 270)
+  p13: (600, 390)
+  p14: (600, 495)
+  p15: (600, 615)
+  c0: (-15, 165)
+  c1: (-30, 390)
+  c2: (0, 675)
+}
