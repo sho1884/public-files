@@ -19,7 +19,7 @@ Built with React Flow for graph editing and TypeScript for type safety.
 
 - Myers, G.J., Badgett, T., Sandler, C. [*The Art of Software Testing*, 3rd Edition](https://www.oreilly.com/library/view/the-art-of/9781118133156/toc.html), Chapter 4
 - [ISO/IEC/IEEE 29119-4:2021](https://www.iso.org/standard/79430.html) "Software and systems engineering — Software testing — Part 4: Test techniques"
-- G.J.マイヤーズ 著, 長尾真・松尾正信 訳 [『ソフトウェア・テストの技法 第3版』](https://www.juse-p.co.jp/products/view/934) 日科技連出版社 — Japanese translation of "The Art of Software Testing"
+- 秋山浩一 [『ソフトウェアテスト技法ドリル【第2版】』](https://www.juse-p.co.jp/products/view/934) 日科技連出版社 — Software Test Technique Drill, 2nd Edition
 - 加瀬正樹 [CEGTest](http://softest.cocolog-nifty.com/blog/cegtest.html) — The original CEG test design tool
 - sho1884 [ブールグラフでロジックを整理してデシジョンテーブルと条件式を自動生成する](https://note.com/sho1884/n/n4afa22873334) (note) — Organizing Logic with Boolean Graphs to Auto-Generate Decision Tables and Conditional Expressions
 - sho1884 [ロジックとアーキテクチャの境界を設計する（その１）](https://note.com/sho1884/n/n372d4dbf49dc) (note) — Designing the Boundary Between Logic and Architecture (Part 1)
