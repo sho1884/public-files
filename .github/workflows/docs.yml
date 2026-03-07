@@ -6,6 +6,8 @@ on:
     paths:
       - 'NeoCEG/**'
       - '.github/workflows/docs.yml'
+      - '*.html'
+      - '*.nceg'
   workflow_dispatch:
 
 permissions:
@@ -30,12 +32,21 @@ jobs:
       - name: Install MkDocs
         run: pip install mkdocs-material
 
-      - name: Build site
+      - name: Build MkDocs site
         run: cd NeoCEG && mkdocs build
+
+      - name: Merge with existing root files
+        run: |
+          mkdir -p _site
+          cp -r NeoCEG/site/* _site/
+          # Copy root-level files (exclude dirs and hidden files)
+          for f in $(find . -maxdepth 1 -type f ! -name '.*'); do
+            cp "$f" _site/
+          done
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: NeoCEG/site
+          path: _site
 
   deploy:
     needs: build
