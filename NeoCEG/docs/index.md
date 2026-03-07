@@ -21,3 +21,10 @@ Built with React Flow for graph editing and TypeScript for type safety.
 - [ISO/IEC/IEEE 29119-4:2021](https://www.iso.org/standard/79430.html) "Software and systems engineering — Software testing — Part 4: Test techniques"
 - G.J.マイヤーズ 著, 長尾真・松尾正信 訳 [『ソフトウェア・テストの技法 第3版』](https://www.juse-p.co.jp/products/view/934) 日科技連出版社
 - 加瀬正樹 [CEGTest](http://softest.cocolog-nifty.com/blog/cegtest.html)
+- sho1884 [ブールグラフでロジックを整理してデシジョンテーブルと条件式を自動生成する](https://note.com/sho1884/n/n4afa22873334) (note)
+- sho1884 [ロジックとアーキテクチャの境界を設計する（その１）](https://note.com/sho1884/n/n372d4dbf49dc) (note)
+- sho1884 [原因結果グラフ法がテストを減らすときの「考え方」](https://qiita.com/sho1884/items/f2b3a887546e87bb734a) (Qiita)
+- sho1884 [原因結果グラフ法と MC/DC カバレッジ](https://qiita.com/sho1884/items/d8b34102e9eb47643866) (Qiita)
+- sho1884 [原因結果グラフ法における制約関係のチートシート](https://qiita.com/sho1884/items/32f8d4d6454e48f1c33c) (Qiita)
+- sho1884 [原因結果グラフ法における制約関係解説（Require制約編）](https://qiita.com/sho1884/items/fc37f3953f4aeb061e60) (Qiita)
+- sho1884 [原因結果グラフ法における制約関係解説（Mask制約編）](https://qiita.com/sho1884/items/f1b3668b2b134dddad4a) (Qiita)
