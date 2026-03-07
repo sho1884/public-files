@@ -9,10 +9,6 @@ Built with React Flow for graph editing and TypeScript for type safety.
 ## Quick Links / リンク
 
 - **[User Manual / ユーザーマニュアル](User_Manual.md)** - How to use NeoCEG / NeoCEG の使い方
-- **[Requirements Specification / 要件仕様](Requirements_Specification.md)** - System requirements and specifications / システム要件と仕様
-- **[DSL Grammar / DSL 文法](DSL_Grammar_Specification.md)** - Formal grammar for `.nceg` files / `.nceg` ファイルの形式文法
-- **[GUI Specification / GUI 仕様](GUI_Specification.md)** - Complete GUI operations specification / GUI 操作仕様
-- **[Algorithm Design / アルゴリズム設計](Algorithm_Design.md)** - CEG algorithm implementation details / CEG アルゴリズムの実装詳細
 
 ## Try It / 試してみる
 

@@ -23,8 +23,6 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
   features:
-    - navigation.sections
-    - navigation.expand
     - search.suggest
     - content.code.copy
 
@@ -32,20 +30,8 @@ markdown_extensions:
   - tables
   - admonition
   - pymdownx.details
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.superfences
 
 nav:
   - Home: index.md
   - User Manual: User_Manual.md
-  - Requirements Specification: Requirements_Specification.md
-  - DSL Grammar: DSL_Grammar_Specification.md
-  - GUI Specification: GUI_Specification.md
-  - Algorithm Design: Algorithm_Design.md
-  - Security Design: Security_Design.md
-  - Traceability: Traceability.md
-  - Modernization Goals: Modernization_Goals_and_Design.md
-  - CEGTest 1.6 Analysis: CEGTest_1.6_Feature_Analysis.md
