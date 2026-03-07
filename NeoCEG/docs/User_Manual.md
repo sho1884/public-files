@@ -18,6 +18,10 @@ NeoCEGは、原因結果グラフ（CEG）によるテスト設計のためのWe
 
 **System Requirements / 動作環境**: Modern web browser (Chrome, Firefox, Edge, Safari) with JavaScript enabled. All processing runs client-side — no data is sent to any server.
 
+![NeoCEG Screenshot (English)](images/NeoCEG_screenshot_en.png)
+
+![NeoCEG スクリーンショット（日本語）](images/NeoCEG_screenshot_jp.png)
+
 ---
 
 ## Table of Contents / 目次
