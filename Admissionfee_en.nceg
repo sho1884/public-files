@@ -1,0 +1,55 @@
+# NeoCEG Graph Definition
+# Sample: Museum Admission Fee
+
+# Propositions
+p1: "Category is Individual"
+p2: "Category is Group"
+p3: "Age is Senior (65+)"
+p4: "Age is Adult"
+p5: "Age is Child (6-12)"
+p6: "Age is Under 6"
+p7: "State Resident is Yes"
+p8: "State Resident is No"
+p9: "Non-resident Child"
+p10: "Resident Child"
+p11: "Admission is $12"
+p12: "Admission is $10"
+p13: "Admission is $6"
+p14: "Admission is $5"
+p15: "Admission is Free"
+
+# Logical Relations
+p9 := p5 AND p8
+p10 := p5 AND p7
+p11 := p1 AND p4
+p12 := p2 AND p4
+p13 := p1 AND p9
+p14 := p2 AND p9
+p15 := p3 OR p6 OR p10
+
+# Constraints
+ONE(p1, p2)
+ONE(p3, p4, p5, p6)
+ONE(p7, p8)
+
+# Layout
+@layout {
+  p1: (100, 100)
+  p2: (100, 180)
+  p3: (100, 280)
+  p4: (100, 360)
+  p5: (100, 440)
+  p6: (100, 520)
+  p7: (100, 620)
+  p8: (100, 700)
+  p9: (330, 480)
+  p10: (345, 660)
+  p11: (585, 135)
+  p12: (585, 270)
+  p13: (600, 390)
+  p14: (600, 495)
+  p15: (600, 615)
+  c0: (-15, 165)
+  c1: (-30, 390)
+  c2: (0, 675)
+}
