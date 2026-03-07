@@ -35,7 +35,7 @@ NeoCEGは、原因結果グラフ（CEG）によるテスト設計のためのWe
 7. [Decision Table / デシジョンテーブル](#7-decision-table--デシジョンテーブル)
 8. [Coverage Table / カバレッジテーブル](#8-coverage-table--カバレッジテーブル)
 9. [Compare View / 比較ビュー](#9-compare-view--比較ビュー)
-10. [NeoCEG DSL Reference / DSLリファレンス](#10-neoceg-dsl-reference--dslリファレンス)
+10. [NeoCEG Language Reference / NeoCEG言語リファレンス](#10-neoceg-language-reference--neoceg言語リファレンス)
 11. [Import and Export / インポートとエクスポート](#11-import-and-export--インポートとエクスポート)
 12. [Keyboard Shortcuts / キーボードショートカット](#12-keyboard-shortcuts--キーボードショートカット)
 13. [Troubleshooting / トラブルシューティング](#13-troubleshooting--トラブルシューティング)
@@ -461,7 +461,7 @@ The **Compare** tab displays the Decision Table and Coverage Table stacked verti
 
 ---
 
-## 10. NeoCEG DSL Reference / DSLリファレンス
+## 10. NeoCEG Language Reference / NeoCEG言語リファレンス
 
 ### 10.1 File Format / ファイル形式
 
@@ -538,11 +538,59 @@ Use parentheses `()` to override precedence. Example: `p1 AND (p2 OR p3)`.
 - If neither tag is present, the node is observable by default.
 - When re-exporting, only `[unobservable]` is written; `[observable]` is never output.
 
-### 10.6 Formal Grammar / 正式文法
+### 10.6 Formal Grammar (EBNF) / 正式文法 (EBNF)
 
-For the complete EBNF grammar definition, see `DSL_Grammar_Specification.md` in the source repository.
+The formal grammar below defines the complete syntax of the `.nceg` file format in EBNF notation.
 
-完全なEBNF文法定義はソースリポジトリの `DSL_Grammar_Specification.md` を参照してください。
+以下の正式文法は、`.nceg` ファイル形式の完全な構文を EBNF 記法で定義します。
+
+**Tip — Using with AI / AIとの連携**: You can give this grammar to an AI assistant (e.g., ChatGPT, Claude) along with your requirements specification, and ask it to generate a `.nceg` file representing the cause-effect graph. The AI can produce a valid `.nceg` definition that you can directly import into NeoCEG.
+
+**ヒント — AIとの連携**: この文法仕様をAIアシスタント（ChatGPT、Claudeなど）に渡し、要求仕様から原因結果グラフを表現する `.nceg` ファイルを生成してもらうことができます。AIが生成した `.nceg` 定義をそのまま NeoCEG にインポートできます。
+
+```ebnf
+(* NeoCEG Grammar v1.2 *)
+
+(* Top-level structure / 最上位構造 *)
+program         = { statement } ;
+statement       = comment | node_definition | constraint_stmt | layout_stmt ;
+comment         = "#" text newline ;
+
+(* Node definitions / ノード定義 *)
+node_definition = identifier ( cause_def | effect_def ) ;
+cause_def       = ":" string [ observable_flag ] ;
+effect_def      = ":=" expression ;
+observable_flag = "[unobservable]" | "[observable]" ;
+
+(* Logical expressions / 論理式 *)
+expression      = or_expr ;
+or_expr         = and_expr { "OR" and_expr } ;
+and_expr        = unary_expr { "AND" unary_expr } ;
+unary_expr      = [ "NOT" ] primary_expr ;
+primary_expr    = identifier | "(" expression ")" ;
+
+(* Constraints / 制約 *)
+constraint_stmt = symmetric_constraint | directional_constraint ;
+symmetric_constraint  = ( "ONE" | "EXCL" | "INCL" ) "(" member_list ")" ;
+directional_constraint = ( "REQ" | "MASK" ) "(" identifier "->" member_list ")" ;
+member_list     = constraint_member { "," constraint_member } ;
+constraint_member = [ "NOT" ] identifier ;
+
+(* Layout section (optional) / レイアウトセクション（オプション） *)
+layout_stmt     = "@layout" "{" { layout_entry } "}" ;
+layout_entry    = identifier ":" "(" number "," number [ "," number ] ")" ;
+                  (* x, y, optional width / x座標, y座標, 省略可能な幅 *)
+
+(* Lexical elements / 字句要素 *)
+identifier      = ( letter | unicode_letter ) { letter | digit | "_" | unicode_letter } ;
+string          = '"' { string_char | escape_sequence } '"' ;
+string_char     = (* any character except " and \ *) ;
+escape_sequence = "\" ( "n" | '"' | "\" ) ;
+number          = [ "-" ] digit { digit } ;
+letter          = "a" - "z" | "A" - "Z" ;
+digit           = "0" - "9" ;
+unicode_letter  = (* Unicode letters: Hiragana U+3040-309F, Katakana U+30A0-30FF, Kanji U+4E00-9FFF, etc. *) ;
+```
 
 ---
 
