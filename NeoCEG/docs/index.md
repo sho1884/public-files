@@ -13,6 +13,8 @@ Built with React Flow for graph editing and TypeScript for type safety.
 ## Try It / 試してみる
 
 - **Application / アプリケーション**: [neo-ceg.vercel.app](https://neo-ceg.vercel.app/)
+- **Sample (JA) / サンプル（日本語）**: [入場料金の例 / Admission Fee (JA)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/Admissionfee.nceg)
+- **Sample (EN) / サンプル（英語）**: [Admission Fee (EN)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/Admissionfee_en.nceg)
 - **Source Code / ソースコード**: [github.com/sho1884/NeoCEG](https://github.com/sho1884/NeoCEG)
 
 ## Reference / 参考文献
