@@ -428,8 +428,14 @@ The **Coverage** tab has two parts:
   **左列**：各論理式の必要ノード値。この式を検証するために必要な原因/中間値を表示。
 - **Right columns**: Coverage markers for each feasible test rule (#1, #2, ...). Shows whether each rule covers this expression.
   **右列**：各実行可能ルールのカバレッジマーカー (#1, #2, ...)。各ルールがこの式をカバーするかを表示。
-- **Remarks (備考) column**: Shows expression status — "Infeasible" or "MASK" when applicable.
-  **Remarks (備考) 列**：論理式の状態を表示 — 該当する場合 "Infeasible" または "MASK"。
+- **Status (状態) column**: Shows the expression status when it cannot be tested normally. Empty for testable expressions.
+  **Status (状態) 列**：正常にテストできない論理式の状態を表示。テスト可能な式では空欄。
+- **Reason (理由) column**: Shows the reason why an expression is infeasible or untestable. For infeasible expressions, shows which constraint was violated (e.g., `ONE(A, B, C)`). For untestable expressions, shows the MASK constraint that causes indeterminacy.
+  **Reason (理由) 列**：論理式が実行不能またはテスト不能である理由を表示。実行不能な式では違反した制約を表示（例：`ONE(A, B, C)`）。テスト不能な式ではMASK制約を表示。
+
+Infeasible and untestable rows are displayed with a gray background across the entire row to visually distinguish them from testable expressions.
+
+実行不能・テスト不能の行は行全体がグレー背景で表示され、テスト可能な式と視覚的に区別できます。
 
 ### 8.3 Coverage Markers / カバレッジマーカー
 
@@ -441,7 +447,19 @@ The **Coverage** tab has two parts:
 | Infeasible / 実行不能 | **-** (red) | Expression can never be tested due to constraint violations / 制約違反のため検証不可 |
 | Untestable / テスト不能 | **?** (amber) | Expression is untestable due to MASK constraint (result is I) / MASK制約によりテスト不能 |
 
-### 8.4 Coverage Statistics / カバレッジ統計
+### 8.4 Status and Reason Columns / Status・Reason 列
+
+| Status | Reason example / 理由の例 | Row style / 行スタイル |
+|---|---|---|
+| (empty) | (empty) | Normal / 通常 |
+| Infeasible | `ONE(A, B, C)`, `EXCL(X, Y)`, `REQ(A → B)` | Gray background / グレー背景 |
+| Untestable | `MASK(X → Y, Z)` | Gray background / グレー背景 |
+
+The **Reason** column shows the specific constraint that caused the expression to be infeasible or untestable. For constraints with members, the member node labels are listed. For directional constraints (REQ/MASK), the arrow notation (`→`) indicates the source/trigger and targets.
+
+**Reason** 列には、論理式が実行不能またはテスト不能となった具体的な制約を表示します。メンバーを持つ制約ではメンバーノードのラベルが列挙されます。方向性制約（REQ/MASK）では、矢印（`→`）でソース/トリガーとターゲットを示します。
+
+### 8.5 Coverage Statistics / カバレッジ統計
 
 The status bar shows: `N rules | X% coverage (covered/total)`
 
