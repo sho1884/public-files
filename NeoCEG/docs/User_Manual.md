@@ -326,6 +326,10 @@ The **Decision** tab displays the generated test conditions (rules). Each column
 | **Intermediate** / 中間 | Indigo `#3949ab` | Light indigo `#e8eaf6` |
 | **Effects** / 結果 | Purple `#7b1fa2` | Light purple `#f3e5f5` |
 
+Each row has an **ID column** (displayed in subdued gray) showing the node identifier (e.g., `p1`, `p2`). This identifier corresponds to the node name used in the NeoCEG Language (§10) and in the coverage table's Reason column (§8.4).
+
+各行には**ID列**（控えめなグレーで表示）があり、ノード識別子（例：`p1`, `p2`）を表示します。この識別子はNeoCEG言語（§10）およびカバレッジ表のReason列（§8.4）で使用されるノード名に対応します。
+
 ### 7.2 Truth Values / 真理値
 
 NeoCEG uses six truth values. **Case matters** — uppercase and lowercase have different meanings:
@@ -424,8 +428,8 @@ The **Coverage** tab has two parts:
 
 - **Row labels**: Each row is labeled `Expr.1`, `Expr.2`, ... corresponding to each logical edge (expression) in the CEG.
   **行ラベル**：各行は `Expr.1`, `Expr.2`, ... と表示され、CEG内の各論理エッジ（式）に対応。
-- **Left columns**: Required node values for each expression. Shows which cause/intermediate values are needed to exercise this expression.
-  **左列**：各論理式の必要ノード値。この式を検証するために必要な原因/中間値を表示。
+- **Left columns**: Required node values for each expression. Column headers show the node identifier and label (e.g., `p1: Valid user ID`). Shows which cause/intermediate values are needed to exercise this expression.
+  **左列**：各論理式の必要ノード値。列ヘッダーにはノード識別子とラベルが表示されます（例：`p1: 有効なユーザーID`）。この式を検証するために必要な原因/中間値を表示。
 - **Right columns**: Coverage markers for each feasible test rule (#1, #2, ...). Shows whether each rule covers this expression.
   **右列**：各実行可能ルールのカバレッジマーカー (#1, #2, ...)。各ルールがこの式をカバーするかを表示。
 - **Status (状態) column**: Shows the expression status when it cannot be tested normally. Empty for testable expressions.
@@ -455,9 +459,9 @@ Infeasible and untestable rows are displayed with a gray background across the e
 | Infeasible | `ONE(A, B, C)`, `EXCL(X, Y)`, `REQ(A → B)` | Gray background / グレー背景 |
 | Untestable | `MASK(X → Y, Z)` | Gray background / グレー背景 |
 
-The **Reason** column shows the specific constraint that caused the expression to be infeasible or untestable. For constraints with members, the member node labels are listed. For directional constraints (REQ/MASK), the arrow notation (`→`) indicates the source/trigger and targets.
+The **Reason** column shows the specific constraint that caused the expression to be infeasible or untestable, using node identifiers (e.g., `p1`, `p2`). These identifiers can be cross-referenced with the ID column in the decision table (§7.1) or the column headers in the coverage table. For directional constraints (REQ/MASK), the arrow notation (`→`) indicates the source/trigger and targets.
 
-**Reason** 列には、論理式が実行不能またはテスト不能となった具体的な制約を表示します。メンバーを持つ制約ではメンバーノードのラベルが列挙されます。方向性制約（REQ/MASK）では、矢印（`→`）でソース/トリガーとターゲットを示します。
+**Reason** 列には、論理式が実行不能またはテスト不能となった具体的な制約を、ノード識別子（例：`p1`, `p2`）を使って表示します。これらの識別子はデシジョンテーブルのID列（§7.1）またはカバレッジ表の列ヘッダーと対照できます。方向性制約（REQ/MASK）では、矢印（`→`）でソース/トリガーとターゲットを示します。
 
 ### 8.5 Coverage Statistics / カバレッジ統計
 
