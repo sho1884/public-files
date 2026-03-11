@@ -285,8 +285,13 @@ You can also add members manually by dragging from a constraint node's handle to
 > **REQ NOT rule**: NOT is allowed on the **source side or target side, but not both simultaneously**. Examples: `REQ(NOT A -> B)` means "If A=F then B=T"; `REQ(A -> NOT B)` means "If A=T then B=F". `REQ(NOT A -> NOT B)` is **prohibited** — the double negation makes the intent ambiguous and error-prone.
 > **REQのNOTルール**：NOTは**ソース側またはターゲット側のいずれか一方のみ**許可。例：`REQ(NOT A -> B)` は「A=FならばB=T」、`REQ(A -> NOT B)` は「A=TならばB=F」。`REQ(NOT A -> NOT B)` は**禁止** — 二重否定は意図が曖昧でエラーを招きやすいため。
 >
-> **MASK NOT rule**: NOT is allowed on the **trigger side only**. NOT is prohibited on targets (M value is symmetric under negation — NOT M = M). Example: `MASK(NOT A -> B)` means "If A=F then B is masked".
-> **MASKのNOTルール**：NOTは**トリガー側のみ**許可。ターゲット側は禁止（M値は否定に対して対称 — NOT M = M）。例：`MASK(NOT A -> B)` は「A=FならばBはマスク」の意味。
+> **MASK NOT rule**: NOT is allowed on the **trigger side only**. NOT is prohibited on targets. Example: `MASK(NOT A -> B)` means "If A=F then B is masked".
+> **MASKのNOTルール**：NOTは**トリガー側のみ**許可。ターゲット側は禁止。例：`MASK(NOT A -> B)` は「A=FならばBはマスク」の意味。
+>
+> **Why this asymmetry? / なぜ非対称か？** REQ sets T/F values on targets — NOT reverses this (T→F), producing a different result. MASK sets M (Don't Care) on targets — NOT M = M, so target NOT produces the same result and is meaningless.
+> REQはターゲットにT/Fを設定するためNOTで反転（T→F）すると異なる結果になる。MASKはターゲットにM（Don't Care）を設定するためNOT M = Mとなり、ターゲットNOTは同じ結果になり無意味。
+> - `REQ(A -> B)`: A=T → B=**T** / `REQ(A -> NOT B)`: A=T → B=**F** (different / 異なる)
+> - `MASK(A -> B)`: A=T → B=**M** / `MASK(A -> NOT B)`: A=T → B=**M** (same / 同じ)
 
 ### 6.6 Constraint NOT / 制約のNOT
 
