@@ -282,8 +282,11 @@ You can also add members manually by dragging from a constraint node's handle to
 
 **方向の変更**：ターゲット制約エッジを右クリックし、「Set as Source」（REQ）または「Set as Trigger」（MASK）を選択。現在のソース/トリガーはターゲットに降格します。
 
-> **Important**: NOT is **not allowed** on the source/trigger side. If a NOT-bearing target is promoted to source/trigger, the NOT is automatically removed and a notification is shown. Use Ctrl+Z to undo.
-> **重要**：ソース/トリガー側にNOTは**許可されません**。NOT付きターゲットをソース/トリガーに昇格した場合、NOTは自動削除されダイアログで通知されます。Ctrl+Zで元に戻せます。
+> **REQ NOT rule**: NOT is allowed on the **source side only**. NOT is prohibited on targets. Example: `REQ(NOT A -> B)` means "If A=F then B must be T".
+> **REQのNOTルール**：NOTは**ソース側のみ**許可。ターゲット側は禁止。例：`REQ(NOT A -> B)` は「A=FならばB=T」の意味。
+>
+> **MASK NOT rule**: NOT is not allowed on either side (trigger or targets).
+> **MASKのNOTルール**：トリガー側・ターゲット側ともにNOT不可。
 
 ### 6.6 Constraint NOT / 制約のNOT
 
@@ -295,7 +298,8 @@ Example: `EXCL(A, NOT B)` means that A=T and B=F cannot coexist — at most one 
 
 例：`EXCL(A, NOT B)` は A=T と B=F が共存できないことを意味します — {A, NOT B} のうち最大1つのみ真。
 
-> **Note**: NOT on source/trigger is prohibited for REQ/MASK (see §6.5).
+> **Note**: For REQ, NOT is allowed on source only (not on targets). For MASK, NOT is not allowed on either side. See §6.5.
+> **注記**：REQではNOTはソース側のみ許可（ターゲット不可）。MASKではどちら側もNOT不可。§6.5参照。
 
 ### 6.7 Type Conversion Rules / タイプ変換ルール
 
@@ -760,7 +764,7 @@ The clipboard contains both `text/html` (for rich paste) and `text/plain` (CSV f
 | AND/OR badge does not appear / AND/ORバッジが表示されない | Node has no incoming edges / 入力エッジがない | Connect at least one incoming logical edge / 入力論理エッジを少なくとも1つ接続 |
 | Learning Mode auto-switches to Practice / Learning Modeが自動でPracticeに切替 | More than 8 causes (>256 combinations) / 原因が8個超（256組合せ超） | Reduce cause count or use Practice Mode / 原因数を減らすかPractice Modeを使用 |
 | Page leave warning appears / ページ離脱警告が表示される | Unsaved changes exist / 未保存の変更がある | Save via File > Save CEG Definition, or dismiss / Fileメニューで保存するかダイアログを閉じる |
-| "NOT was removed" alert after promoting to source / ソース昇格後に「NOT was removed」アラート | Promoted a NOT-bearing target to source/trigger / NOT付きターゲットをソースに昇格 | Expected behavior — source/trigger must be positive. Ctrl+Z to undo / 想定動作。ソースは常に正論理。Ctrl+Zで元に戻す |
+| "NOT was removed" alert after promoting to trigger / トリガー昇格後に「NOT was removed」アラート | Promoted a NOT-bearing target to MASK trigger / NOT付きターゲットをMASKトリガーに昇格 | Expected behavior — MASK trigger must be positive. Ctrl+Z to undo / 想定動作。MASKトリガーは常に正論理。Ctrl+Zで元に戻す |
 | Coverage shows 0% / カバレッジが0% | No effects in the graph / グラフに結果ノードがない | Ensure at least one node has no outgoing logical edges / 出力論理エッジのないノードが最低1つ必要 |
 | Import error with line number / 行番号付きインポートエラー | Syntax error in `.nceg` file / `.nceg`ファイルの構文エラー | Check the indicated line for typos, missing quotes, or invalid keywords / 指定行のタイプミス、引用符不足、無効なキーワードを確認 |
 
