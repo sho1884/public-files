@@ -285,8 +285,8 @@ You can also add members manually by dragging from a constraint node's handle to
 > **REQ NOT rule**: NOT is allowed on the **source side only**. NOT is prohibited on targets. Example: `REQ(NOT A -> B)` means "If A=F then B must be T".
 > **REQのNOTルール**：NOTは**ソース側のみ**許可。ターゲット側は禁止。例：`REQ(NOT A -> B)` は「A=FならばB=T」の意味。
 >
-> **MASK NOT rule**: NOT is not allowed on either side (trigger or targets).
-> **MASKのNOTルール**：トリガー側・ターゲット側ともにNOT不可。
+> **MASK NOT rule**: NOT is allowed on the **trigger side only**. NOT is prohibited on targets. Example: `MASK(NOT A -> B)` means "If A=F then B is masked".
+> **MASKのNOTルール**：NOTは**トリガー側のみ**許可。ターゲット側は禁止。例：`MASK(NOT A -> B)` は「A=FならばBはマスク」の意味。
 
 ### 6.6 Constraint NOT / 制約のNOT
 
@@ -298,8 +298,8 @@ Example: `EXCL(A, NOT B)` means that A=T and B=F cannot coexist — at most one 
 
 例：`EXCL(A, NOT B)` は A=T と B=F が共存できないことを意味します — {A, NOT B} のうち最大1つのみ真。
 
-> **Note**: For REQ, NOT is allowed on source only (not on targets). For MASK, NOT is not allowed on either side. See §6.5.
-> **注記**：REQではNOTはソース側のみ許可（ターゲット不可）。MASKではどちら側もNOT不可。§6.5参照。
+> **Note**: For REQ and MASK, NOT is allowed on source/trigger only (not on targets). See §6.5.
+> **注記**：REQ・MASKともにNOTはソース/トリガー側のみ許可（ターゲット不可）。§6.5参照。
 
 ### 6.7 Type Conversion Rules / タイプ変換ルール
 
