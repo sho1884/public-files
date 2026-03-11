@@ -282,11 +282,11 @@ You can also add members manually by dragging from a constraint node's handle to
 
 **方向の変更**：ターゲット制約エッジを右クリックし、「Set as Source」（REQ）または「Set as Trigger」（MASK）を選択。現在のソース/トリガーはターゲットに降格します。
 
-> **REQ NOT rule**: NOT is allowed on the **source side only**. NOT is prohibited on targets. Example: `REQ(NOT A -> B)` means "If A=F then B must be T".
-> **REQのNOTルール**：NOTは**ソース側のみ**許可。ターゲット側は禁止。例：`REQ(NOT A -> B)` は「A=FならばB=T」の意味。
+> **REQ NOT rule**: NOT is allowed on the **source side or target side, but not both simultaneously**. Examples: `REQ(NOT A -> B)` means "If A=F then B=T"; `REQ(A -> NOT B)` means "If A=T then B=F". `REQ(NOT A -> NOT B)` is **prohibited** — the double negation makes the intent ambiguous and error-prone.
+> **REQのNOTルール**：NOTは**ソース側またはターゲット側のいずれか一方のみ**許可。例：`REQ(NOT A -> B)` は「A=FならばB=T」、`REQ(A -> NOT B)` は「A=TならばB=F」。`REQ(NOT A -> NOT B)` は**禁止** — 二重否定は意図が曖昧でエラーを招きやすいため。
 >
-> **MASK NOT rule**: NOT is allowed on the **trigger side only**. NOT is prohibited on targets. Example: `MASK(NOT A -> B)` means "If A=F then B is masked".
-> **MASKのNOTルール**：NOTは**トリガー側のみ**許可。ターゲット側は禁止。例：`MASK(NOT A -> B)` は「A=FならばBはマスク」の意味。
+> **MASK NOT rule**: NOT is allowed on the **trigger side only**. NOT is prohibited on targets (M value is symmetric under negation — NOT M = M). Example: `MASK(NOT A -> B)` means "If A=F then B is masked".
+> **MASKのNOTルール**：NOTは**トリガー側のみ**許可。ターゲット側は禁止（M値は否定に対して対称 — NOT M = M）。例：`MASK(NOT A -> B)` は「A=FならばBはマスク」の意味。
 
 ### 6.6 Constraint NOT / 制約のNOT
 
@@ -298,8 +298,8 @@ Example: `EXCL(A, NOT B)` means that A=T and B=F cannot coexist — at most one 
 
 例：`EXCL(A, NOT B)` は A=T と B=F が共存できないことを意味します — {A, NOT B} のうち最大1つのみ真。
 
-> **Note**: For REQ and MASK, NOT is allowed on source/trigger only (not on targets). See §6.5.
-> **注記**：REQ・MASKともにNOTはソース/トリガー側のみ許可（ターゲット不可）。§6.5参照。
+> **Note**: For REQ, NOT is allowed on source or targets but not both simultaneously. For MASK, NOT is allowed on trigger only (not on targets). See §6.5.
+> **注記**：REQではNOTはソース側またはターゲット側のいずれか一方のみ許可。MASKではNOTはトリガー側のみ許可（ターゲット不可）。§6.5参照。
 
 ### 6.7 Type Conversion Rules / タイプ変換ルール
 
@@ -598,7 +598,10 @@ primary_expr    = identifier | "(" expression ")" ;
 (* Constraints / 制約 *)
 constraint_stmt = symmetric_constraint | directional_constraint ;
 symmetric_constraint  = ( "ONE" | "EXCL" | "INCL" ) "(" member_list ")" ;
-directional_constraint = ( "REQ" | "MASK" ) "(" identifier "->" member_list ")" ;
+req_constraint  = "REQ" "(" constraint_member "->" member_list ")" ;
+mask_constraint = "MASK" "(" constraint_member "->" identifier_list ")" ;
+directional_constraint = req_constraint | mask_constraint ;
+identifier_list = identifier { "," identifier } ;
 member_list     = constraint_member { "," constraint_member } ;
 constraint_member = [ "NOT" ] identifier ;
 
@@ -764,7 +767,7 @@ The clipboard contains both `text/html` (for rich paste) and `text/plain` (CSV f
 | AND/OR badge does not appear / AND/ORバッジが表示されない | Node has no incoming edges / 入力エッジがない | Connect at least one incoming logical edge / 入力論理エッジを少なくとも1つ接続 |
 | Learning Mode auto-switches to Practice / Learning Modeが自動でPracticeに切替 | More than 8 causes (>256 combinations) / 原因が8個超（256組合せ超） | Reduce cause count or use Practice Mode / 原因数を減らすかPractice Modeを使用 |
 | Page leave warning appears / ページ離脱警告が表示される | Unsaved changes exist / 未保存の変更がある | Save via File > Save CEG Definition, or dismiss / Fileメニューで保存するかダイアログを閉じる |
-| "NOT was removed" alert after promotion / 昇格後に「NOT was removed」アラート | Demoted a NOT-bearing source/trigger to target / NOT付きソース/トリガーがターゲットに降格 | Expected behavior — REQ/MASK targets cannot have NOT. Ctrl+Z to undo / 想定動作。REQ/MASKターゲットはNOT不可。Ctrl+Zで元に戻す |
+| "NOT was removed" alert after promotion / 昇格後に「NOT was removed」アラート | Demoted a NOT-bearing source/trigger to target in MASK, or both-sides-NOT would result in REQ / MASK でNOT付きソース/トリガーがターゲットに降格、またはREQで両側NOTになる場合 | Expected behavior — MASK targets cannot have NOT; REQ prohibits NOT on both sides simultaneously. Ctrl+Z to undo / 想定動作。MASKターゲットはNOT不可。REQは両側同時NOT禁止。Ctrl+Zで元に戻す |
 | Coverage shows 0% / カバレッジが0% | No effects in the graph / グラフに結果ノードがない | Ensure at least one node has no outgoing logical edges / 出力論理エッジのないノードが最低1つ必要 |
 | Import error with line number / 行番号付きインポートエラー | Syntax error in `.nceg` file / `.nceg`ファイルの構文エラー | Check the indicated line for typos, missing quotes, or invalid keywords / 指定行のタイプミス、引用符不足、無効なキーワードを確認 |
 
