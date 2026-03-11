@@ -514,7 +514,7 @@ error_display := NOT p1 OR NOT p2
 # Constraints
 EXCL(auth_success, error_display)
 REQ(auth_success -> p3)
-MASK(p3 -> login_result, NOT error_display)
+MASK(p3 -> login_result, error_display)
 
 # Optional layout section
 @layout {
@@ -764,7 +764,7 @@ The clipboard contains both `text/html` (for rich paste) and `text/plain` (CSV f
 | AND/OR badge does not appear / AND/ORバッジが表示されない | Node has no incoming edges / 入力エッジがない | Connect at least one incoming logical edge / 入力論理エッジを少なくとも1つ接続 |
 | Learning Mode auto-switches to Practice / Learning Modeが自動でPracticeに切替 | More than 8 causes (>256 combinations) / 原因が8個超（256組合せ超） | Reduce cause count or use Practice Mode / 原因数を減らすかPractice Modeを使用 |
 | Page leave warning appears / ページ離脱警告が表示される | Unsaved changes exist / 未保存の変更がある | Save via File > Save CEG Definition, or dismiss / Fileメニューで保存するかダイアログを閉じる |
-| "NOT was removed" alert after promoting to trigger / トリガー昇格後に「NOT was removed」アラート | Promoted a NOT-bearing target to MASK trigger / NOT付きターゲットをMASKトリガーに昇格 | Expected behavior — MASK trigger must be positive. Ctrl+Z to undo / 想定動作。MASKトリガーは常に正論理。Ctrl+Zで元に戻す |
+| "NOT was removed" alert after promotion / 昇格後に「NOT was removed」アラート | Demoted a NOT-bearing source/trigger to target / NOT付きソース/トリガーがターゲットに降格 | Expected behavior — REQ/MASK targets cannot have NOT. Ctrl+Z to undo / 想定動作。REQ/MASKターゲットはNOT不可。Ctrl+Zで元に戻す |
 | Coverage shows 0% / カバレッジが0% | No effects in the graph / グラフに結果ノードがない | Ensure at least one node has no outgoing logical edges / 出力論理エッジのないノードが最低1つ必要 |
 | Import error with line number / 行番号付きインポートエラー | Syntax error in `.nceg` file / `.nceg`ファイルの構文エラー | Check the indicated line for typos, missing quotes, or invalid keywords / 指定行のタイプミス、引用符不足、無効なキーワードを確認 |
 
