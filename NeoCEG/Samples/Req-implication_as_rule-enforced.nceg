@@ -1,0 +1,27 @@
+# NeoCEG Graph Definition
+# Exported: 2026-03-14T10:31:56.315Z
+
+# Propositions (命題)
+p1: "A"
+p2: "B"
+p3: "A→B"
+p4: "The rule is observed / ルールは守られている"
+p5: "The rule is violated / ルールは守られていない"
+
+# Logical Relations (論理式)
+p3 := NOT p1 OR p2
+p4 := p3
+p5 := NOT p3
+
+# Constraints
+REQ(p1 -> p2)
+
+# Layout
+@layout {
+  p1: (300, 210, 80)
+  p2: (300, 300, 80)
+  p3: (465, 255, 80)
+  p4: (630, 210, 330)
+  p5: (630, 300, 335)
+  c0: (225, 255)
+}

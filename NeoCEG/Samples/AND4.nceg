@@ -1,0 +1,21 @@
+# NeoCEG Graph Definition
+# Exported: 2026-03-14T00:06:02.771Z
+
+# Propositions (命題)
+p1: "P1"
+p2: "P2"
+p3: "P1⋀P2⋀P3⋀P4"
+p4: "P3"
+p5: "P4"
+
+# Logical Relations (論理式)
+p3 := p1 AND p2 AND p4 AND p5
+
+# Layout
+@layout {
+  p1: (855, 420, 80)
+  p2: (855, 480, 80)
+  p3: (990, 450, 150)
+  p4: (855, 540, 80)
+  p5: (855, 600, 80)
+}

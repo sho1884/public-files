@@ -1,0 +1,17 @@
+# NeoCEG Graph Definition
+# Exported: 2026-03-14T00:01:09.809Z
+
+# Propositions (命題)
+p1: "P"
+p2: "Q"
+p3: "P ∨ Q"
+
+# Logical Relations (論理式)
+p3 := p1 OR p2
+
+# Layout
+@layout {
+  p1: (855, 420, 80)
+  p2: (855, 480, 80)
+  p3: (990, 450, 105)
+}

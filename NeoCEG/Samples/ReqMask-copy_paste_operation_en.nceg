@@ -1,0 +1,48 @@
+# NeoCEG Graph Definition
+# Exported: 2026-03-14T11:46:12.880Z
+
+# Propositions (命題)
+p1: "A range is selected"
+p2: "Ctrl-C keystroke detected"
+p3: "\"Copy\" commanded via context menu"
+p4: "Clipboard contains data"
+p5: "An insertion point is specified"
+p6: "Ctrl-V keystroke detected"
+p7: "\"Paste\" commanded via context menu"
+p8: "Copy command detected"
+p9: "Paste command detected"
+p10: "(Copy) Selected range is stored in clipboard"
+p11: "(Paste) Clipboard data is inserted at the specified position"
+
+# Logical Relations (論理式)
+p8 := p2 OR p3
+p9 := p6 OR p7
+p10 := p1 AND p8
+p11 := p5 AND p9 AND p4
+
+# Constraints
+REQ(p2 -> p1)
+REQ(p6 -> p5)
+MASK(NOT p1 -> p3)
+MASK(NOT p5 -> p7)
+MASK(NOT p4 -> p7)
+
+# Layout
+@layout {
+  p1: (90, 105, 165)
+  p2: (90, 165, 180)
+  p3: (90, 225, 270)
+  p4: (90, 315, 210)
+  p5: (90, 375, 210)
+  p6: (90, 435, 180)
+  p7: (90, 495, 285)
+  p8: (420, 195, 210)
+  p9: (420, 465, 210)
+  p10: (690, 150, 270)
+  p11: (690, 405, 270)
+  c0: (-15, 90)
+  c1: (-30, 375)
+  c2: (-45, 225)
+  c3: (-75, 495)
+  c4: (-105, 360)
+}

@@ -1,0 +1,30 @@
+# NeoCEG Graph Definition
+# Exported: 2026-03-14T11:27:52.322Z
+
+# Propositions (命題)
+p1: "A: x is zero / xは0である"
+p2: "B: The reciprocal of x is needed / 求めたいのはxの逆数"
+p3: "￢A∧B"
+p4: "Calculating 1/x is not needed ／ 1/xの計算は必要ない"
+p5: "Calculate 1/x ／ 1/xを計算する"
+p6: "The reciprocal cannot be computed / 逆数は計算できない"
+
+# Logical Relations (論理式)
+p3 := NOT p1 AND p2
+p4 := NOT p2
+p5 := p3
+p6 := p1
+
+# Constraints
+MASK(p1 -> p2)
+
+# Layout
+@layout {
+  p1: (240, 195, 185)
+  p2: (240, 330, 230)
+  p3: (525, 270, 110)
+  p4: (660, 330, 240)
+  p5: (660, 270, 240)
+  p6: (660, 195, 270)
+  c0: (180, 270)
+}

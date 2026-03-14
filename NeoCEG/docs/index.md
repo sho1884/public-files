@@ -13,9 +13,49 @@ Built with React Flow for graph editing and TypeScript for type safety.
 ## Try It / 試してみる
 
 - **Application / アプリケーション**: [neo-ceg.vercel.app](https://neo-ceg.vercel.app/)
-- **Sample (JA) / サンプル（日本語）**: [入場料金の例 / Admission Fee (JA)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/Admissionfee.nceg)
-- **Sample (EN) / サンプル（英語）**: [Admission Fee (EN)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/Admissionfee_en.nceg)
 - **Source Code / ソースコード**: [github.com/sho1884/NeoCEG](https://github.com/sho1884/NeoCEG)
+
+### Samples / サンプル
+
+Click a link to open the sample directly in NeoCEG. / リンクをクリックすると NeoCEG でサンプルが開きます。
+
+**Basic Logic / 基本ロジック:**
+
+- [AND](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/AND.nceg) - AND gate
+- [OR](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OR.nceg) - OR gate
+- [AND (4 inputs)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/AND4.nceg) - 4-input AND
+- [OR (4 inputs)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OR4.nceg) - 4-input OR
+- [AND/OR Logic](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/AND_OR_Logic.nceg) - Combined AND/OR
+- [AND/OR Program](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/AND_OR_Program.nceg) - Program logic example
+
+**Constraints / 制約:**
+
+- [ONE constraint (definition)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/One-constraint-definition.nceg)
+- [ONE constraint (enforced)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/One-constraint-enforced.nceg)
+- [AND4 + EXCL](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/AND4_EXCL.nceg)
+- [OR4 + EXCL](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OR4_EXCL.nceg)
+- [REQ constraint (A->B, A->C)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Req-constraint-AB_AC.nceg)
+- [REQ constraint (A->B, B->C)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Req-constraint-AB_BC.nceg)
+- [REQ implication as rule (definition)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Req-implication_as_rule-definition.nceg)
+- [REQ implication as rule (enforced)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Req-implication_as_rule-enforced.nceg)
+- [REQ negative implication (enforced)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Req-negative_implication-enforced.nceg)
+- [MASK constraint (A->B, A->C)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Mask-constraint-AB_AC.nceg)
+- [MASK constraint (A->B, C->B)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Mask-constraint-AB_CB.nceg)
+- [MASK constraint (enforced)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Mask-constraint-enforced.nceg)
+- [MASK negative implication (enforced)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Mask-negative_implication-enforced.nceg)
+- [REQ vs MASK comparison (Req)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/reciprocal_comparison-Req_constraint.nceg)
+- [REQ vs MASK comparison (Mask)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/reciprocal_comparison-Mask_constraint.nceg)
+
+**Real-world Examples / 実践例:**
+
+- [Admission Fee / 入場料金 (JA)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Admissionfee_jp.nceg)
+- [Admission Fee (EN)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Admissionfee_en.nceg)
+- [Printer Print Options / プリンタ印刷設定 (JA)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OneMask-printer_print_options_jp.nceg)
+- [Printer Print Options (EN)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OneMask-printer_print_options_en.nceg)
+- [Copy/Paste Operation / コピー＆ペースト操作 (JA)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/ReqMask-copy_paste_operation_jp.nceg)
+- [Copy/Paste Operation (EN)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/ReqMask-copy_paste_operation_en.nceg)
+- [Windows Folder Option / Windowsフォルダオプション (JA)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Windows-Folder-Option.nceg)
+- [Windows Folder Option (EN)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Windows-Folder-Option_en.nceg)
 
 ## Reference / 参考文献
 

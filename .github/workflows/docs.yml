@@ -1,13 +1,8 @@
-name: Deploy NeoCEG Documentation
+name: Deploy Public Files & Documentation
 
 on:
   push:
     branches: [main]
-    paths:
-      - 'NeoCEG/**'
-      - '.github/workflows/docs.yml'
-      - '*.html'
-      - '*.nceg'
   workflow_dispatch:
 
 permissions:
@@ -32,14 +27,19 @@ jobs:
       - name: Install MkDocs
         run: pip install mkdocs-material
 
-      - name: Build MkDocs site
+      - name: Build NeoCEG docs
         run: cd NeoCEG && mkdocs build
 
-      - name: Merge with existing root files
+      - name: Assemble site
         run: |
-          mkdir -p _site
-          cp -r NeoCEG/site/* _site/
-          # Copy root-level files (exclude dirs and hidden files)
+          mkdir -p _site/NeoCEG
+          # NeoCEG MkDocs output
+          cp -r NeoCEG/site/* _site/NeoCEG/
+          # NeoCEG sample files
+          if [ -d NeoCEG/Samples ]; then
+            cp -r NeoCEG/Samples _site/NeoCEG/Samples
+          fi
+          # Root-level files (exclude dirs and hidden files)
           for f in $(find . -maxdepth 1 -type f ! -name '.*'); do
             cp "$f" _site/
           done

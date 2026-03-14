@@ -1,0 +1,103 @@
+# NeoCEG Graph Definition
+# Exported: 2026-03-14T13:51:06.959Z
+
+# Propositions (命題)
+p1: "[Orientation] set to \"Portrait\""
+p2: "[Orientation] set to \"Landscape\""
+p3: "[Duplex] set to \"None\""
+p4: "[Duplex] set to \"Short-edge binding\""
+p5: "[Duplex] set to \"Long-edge binding\""
+p6: "[Binding margin] set to \"None\""
+p7: "[Binding margin] set to \"Short-edge Top\""
+p8: "[Binding margin] set to \"Short-edge Left\""
+p9: "[Binding margin] set to \"Short-edge Right\""
+p10: "[Binding margin] set to \"Short-edge Bottom\""
+p11: "[Binding margin] set to \"Long-edge Top\""
+p12: "[Binding margin] set to \"Long-edge Left\""
+p13: "[Binding margin] set to \"Long-edge Right\""
+p14: "[Binding margin] set to \"Long-edge Bottom\""
+p15: "Portrait, single-sided"
+p16: "Portrait, short-edge binding"
+p17: "Portrait, long-edge binding"
+p18: "Landscape, single-sided"
+p19: "Landscape, short-edge binding"
+p20: "Landscape, long-edge binding"
+p21: "No binding margin applied"
+p22: "Binding margin on short-edge top"
+p23: "Binding margin on short-edge left"
+p24: "Binding margin on short-edge right"
+p25: "Binding margin on short-edge bottom"
+p26: "Binding margin on long-edge right"
+p27: "Binding margin on long-edge left"
+p28: "Binding margin on long-edge bottom"
+p29: "Binding margin on long-edge top"
+
+# Logical Relations (論理式)
+p15 := p1 AND p3
+p16 := p1 AND p4
+p17 := p1 AND p5
+p18 := p2 AND p3
+p19 := p2 AND p4
+p20 := p2 AND p5
+p21 := p6
+p22 := p7
+p23 := p8
+p24 := p9
+p25 := p10
+p26 := p13
+p27 := p12
+p28 := p14
+p29 := p11
+
+# Constraints
+ONE(p1, p2)
+ONE(p3, p4, p5)
+ONE(p6, p7, p8, p9, p10, p11, p12, p13, p14)
+MASK(p2 -> p7, p10, p12, p13)
+MASK(p1 -> p8, p9, p11, p14)
+MASK(p16 -> p12, p13)
+MASK(p17 -> p7, p10)
+MASK(p19 -> p11, p14)
+MASK(p20 -> p8, p9)
+
+# Layout
+@layout {
+  p1: (-15, 105, 215)
+  p2: (-15, 165, 230)
+  p3: (-15, 240, 180)
+  p4: (-15, 300, 255)
+  p5: (-15, 360, 255)
+  p6: (405, 435, 180)
+  p7: (405, 510, 180)
+  p8: (405, 570, 180)
+  p9: (405, 630, 180)
+  p10: (405, 690, 180)
+  p11: (405, 780, 180)
+  p12: (405, 840, 180)
+  p13: (405, 900, 180)
+  p14: (405, 960, 180)
+  p15: (540, 105, 195)
+  p16: (540, 150, 225)
+  p17: (540, 195, 225)
+  p18: (540, 255, 210)
+  p19: (540, 315, 240)
+  p20: (540, 375, 240)
+  p21: (630, 435, 230)
+  p22: (630, 510, 260)
+  p23: (630, 570, 260)
+  p24: (630, 630, 275)
+  p25: (630, 690, 290)
+  p26: (630, 900, 275)
+  p27: (630, 840, 260)
+  p28: (630, 960, 290)
+  p29: (630, 780, 260)
+  c0: (-150, 135)
+  c1: (-195, 300)
+  c2: (-120, 930)
+  c3: (-240, 765)
+  c4: (-300, 675)
+  c5: (75, 435)
+  c6: (150, 435)
+  c7: (240, 420)
+  c8: (315, 435)
+}

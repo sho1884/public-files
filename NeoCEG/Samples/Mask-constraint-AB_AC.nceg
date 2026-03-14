@@ -1,0 +1,26 @@
+# NeoCEG Graph Definition
+# Exported: 2026-03-14T06:40:49.201Z
+
+# Propositions (命題)
+p1: "A"
+p2: "B"
+p3: "A⋀B⋀C"
+p4: "A∨B∨C"
+p5: "C"
+
+# Logical Relations (論理式)
+p3 := p1 AND p2 AND p5
+p4 := p2 OR p1 OR p5
+
+# Constraints
+MASK(p1 -> p2, p5)
+
+# Layout
+@layout {
+  p1: (300, 225, 80)
+  p2: (300, 285, 80)
+  p3: (510, 240, 110)
+  p4: (510, 315, 105)
+  p5: (300, 345, 80)
+  c0: (195, 300)
+}

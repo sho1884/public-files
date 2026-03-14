@@ -1,0 +1,24 @@
+# NeoCEG Graph Definition
+# Exported: 2026-03-14T06:34:55.090Z
+
+# Propositions (命題)
+p1: "A"
+p2: "B"
+p3: "￢A⋀B"
+p4: "￢A∨B"
+
+# Logical Relations (論理式)
+p3 := NOT p1 AND p2
+p4 := p2 OR NOT p1
+
+# Constraints
+MASK(p1 -> p2)
+
+# Layout
+@layout {
+  p1: (300, 195, 80)
+  p2: (300, 315, 80)
+  p3: (510, 195, 110)
+  p4: (510, 315, 105)
+  c0: (225, 255)
+}

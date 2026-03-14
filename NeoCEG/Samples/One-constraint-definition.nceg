@@ -1,0 +1,28 @@
+# NeoCEG Graph Definition
+# Exported: 2026-03-14T10:13:26.719Z
+
+# Propositions (命題)
+p1: "A"
+p2: "B"
+p3: "C"
+p4: "A∧￢B∧￢C"
+p5: "￢A∧B∧￢C"
+p6: "￢A∧￢B∧C"
+p7: "The ONE constraint holds / One制約が成り立っている"
+
+# Logical Relations (論理式)
+p4 := p1 AND NOT p2 AND NOT p3
+p5 := NOT p1 AND p2 AND NOT p3
+p6 := NOT p1 AND NOT p2 AND p3
+p7 := p4 OR p5 OR p6
+
+# Layout
+@layout {
+  p1: (300, 200, 80)
+  p2: (300, 350, 80)
+  p3: (300, 500, 80)
+  p4: (600, 200, 150)
+  p5: (600, 350, 150)
+  p6: (600, 500, 150)
+  p7: (950, 350, 215)
+}
