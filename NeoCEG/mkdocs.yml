@@ -35,3 +35,4 @@ markdown_extensions:
 nav:
   - Home: index.md
   - User Manual: User_Manual.md
+  - DSL Grammar (EBNF): DSL_Grammar_Specification.md
