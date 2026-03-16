@@ -1,3 +1,7 @@
+---
+description: "NeoCEG — a Cause-Effect Graph test design tool (ISO/IEC/IEEE 29119-4). Draw logic as a graph, auto-generate decision tables and coverage tables. Free, open-source PWA."
+---
+
 # NeoCEG Documentation / NeoCEG ドキュメント
 
 **NeoCEG** is a test design tool based on the Cause-Effect Graphing technique, a method specified in ISO/IEC/IEEE 29119-4:2021.

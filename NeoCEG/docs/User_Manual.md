@@ -1,3 +1,7 @@
+---
+description: "NeoCEG User Manual — how to create cause-effect graphs, edit nodes, apply constraints (ONE/EXCL/INCL/REQ/MASK), generate decision tables, and use the DSL."
+---
+
 # NeoCEG User Manual / NeoCEG ユーザーマニュアル
 
 **Version**: 1.0

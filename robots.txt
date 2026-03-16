@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sho1884.github.io/public-files/NeoCEG/sitemap.xml

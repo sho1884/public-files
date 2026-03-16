@@ -1,5 +1,8 @@
 site_name: NeoCEG Documentation
 site_url: https://sho1884.github.io/public-files/NeoCEG/
+site_description: >-
+  NeoCEG is a test design tool based on the Cause-Effect Graphing technique (ISO/IEC/IEEE 29119-4).
+  Draw logical relationships as a graph and automatically generate optimized decision tables and coverage tables.
 repo_url: https://github.com/sho1884/NeoCEG
 repo_name: sho1884/NeoCEG
 docs_dir: docs
@@ -31,6 +34,12 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - meta
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/sho1884/NeoCEG
 
 nav:
   - Home: index.md

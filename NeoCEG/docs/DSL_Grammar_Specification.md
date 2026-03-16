@@ -1,3 +1,7 @@
+---
+description: "NeoCEG DSL Grammar — formal EBNF specification for the cause-effect graph description language. Supports Unicode labels, AND/OR/NOT logic, and ONE/EXCL/INCL/REQ/MASK constraints."
+---
+
 # NeoCEG DSL Grammar Specification v1.0
 
 **Status**: Finalized (2026-02-08)
