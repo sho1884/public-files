@@ -54,7 +54,7 @@ NeoCEG is not a port of any existing software, but a ground-up reimplementation.
 
 This project owes a profound debt to **X-CEG**, developed by Dr. Koichi Akiyama (秋山浩一), and to **CEGTest**, developed by Masaki Kase (加瀬正樹). Their tools brought the Cause-Effect Graphing technique — long confined to textbook descriptions — into practical, usable form, and demonstrated that rigorous test design methods could be made accessible to working engineers. NeoCEG stands on the foundation they built.
 
-The author wishes to express deep respect and gratitude to both Mr. Akiyama and Mr. Kase for their years of dedication and the results they have achieved.
+The author wishes to express deep respect and gratitude to both Dr. Akiyama and Mr. Kase for their years of dedication and the results they have achieved.
 
 Special thanks are due to Dr. Koichi Akiyama, who tested NeoCEG from an early stage of its development and provided valuable evaluation and feedback.
 
