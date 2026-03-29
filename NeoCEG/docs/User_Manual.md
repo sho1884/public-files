@@ -1,7 +1,3 @@
----
-description: "NeoCEG User Manual — how to create cause-effect graphs, edit nodes, apply constraints (ONE/EXCL/INCL/REQ/MASK), generate decision tables, and use the DSL."
----
-
 # NeoCEG User Manual / NeoCEG ユーザーマニュアル
 
 **Version**: 1.0
@@ -22,10 +18,6 @@ NeoCEGは、原因結果グラフ（CEG）によるテスト設計のためのWe
 
 **System Requirements / 動作環境**: Modern web browser (Chrome, Firefox, Edge, Safari) with JavaScript enabled. All processing runs client-side — no data is sent to any server.
 
-![NeoCEG Screenshot (English)](images/NeoCEG_screenshot_en.png)
-
-![NeoCEG スクリーンショット（日本語）](images/NeoCEG_screenshot_jp.png)
-
 ---
 
 ## Table of Contents / 目次
@@ -39,7 +31,7 @@ NeoCEGは、原因結果グラフ（CEG）によるテスト設計のためのWe
 7. [Decision Table / デシジョンテーブル](#7-decision-table--デシジョンテーブル)
 8. [Coverage Table / カバレッジテーブル](#8-coverage-table--カバレッジテーブル)
 9. [Compare View / 比較ビュー](#9-compare-view--比較ビュー)
-10. [NeoCEG Language Reference / NeoCEG言語リファレンス](#10-neoceg-language-reference--neoceg言語リファレンス)
+10. [NeoCEG DSL Reference / DSLリファレンス](#10-neoceg-dsl-reference--dslリファレンス)
 11. [Import and Export / インポートとエクスポート](#11-import-and-export--インポートとエクスポート)
 12. [Keyboard Shortcuts / キーボードショートカット](#12-keyboard-shortcuts--キーボードショートカット)
 13. [Troubleshooting / トラブルシューティング](#13-troubleshooting--トラブルシューティング)
@@ -286,11 +278,11 @@ You can also add members manually by dragging from a constraint node's handle to
 
 **方向の変更**：ターゲット制約エッジを右クリックし、「Set as Source」（REQ）または「Set as Trigger」（MASK）を選択。現在のソース/トリガーはターゲットに降格します。
 
-> **REQ NOT rule**: NOT is allowed on the **source side or target side, but not both simultaneously**. Examples: `REQ(NOT A -> B)` means "If A=F then B=T"; `REQ(A -> NOT B)` means "If A=T then B=F". `REQ(NOT A -> NOT B)` is **prohibited** — the double negation makes the intent ambiguous and error-prone.
-> **REQのNOTルール**：NOTは**ソース側またはターゲット側のいずれか一方のみ**許可。例：`REQ(NOT A -> B)` は「A=FならばB=T」、`REQ(A -> NOT B)` は「A=TならばB=F」。`REQ(NOT A -> NOT B)` は**禁止** — 二重否定は意図が曖昧でエラーを招きやすいため。
+> **REQ NOT rule**: NOT is allowed on **source or target side, but not both simultaneously**. `REQ(NOT A -> NOT B)` is prohibited because the meaning becomes ambiguous. Examples: `REQ(NOT A -> B)` = "If A=F then B=T", `REQ(A -> NOT B)` = "If A=T then B=F".
+> **REQのNOTルール**：NOTは**ソース側またはターゲット側のいずれかに適用可能。両方同時は禁止**（意味が曖昧になるため）。例：`REQ(NOT A -> B)` =「A=FならばB=T」、`REQ(A -> NOT B)` =「A=TならばB=F」。
 >
-> **MASK NOT rule**: NOT is allowed on the **trigger side only**. NOT is prohibited on targets. Example: `MASK(NOT A -> B)` means "If A=F then B is masked".
-> **MASKのNOTルール**：NOTは**トリガー側のみ**許可。ターゲット側は禁止。例：`MASK(NOT A -> B)` は「A=FならばBはマスク」の意味。
+> **MASK NOT rule**: NOT is allowed on the **trigger side only**. NOT is prohibited on targets. Example: `MASK(NOT A -> B)` = "If A=F then B is masked".
+> **MASKのNOTルール**：NOTは**トリガー側のみ**許可。ターゲット側は禁止。例：`MASK(NOT A -> B)` =「A=FならばBはマスク」。
 >
 > **Why this asymmetry? / なぜ非対称か？** REQ sets T/F values on targets — NOT reverses this (T→F), producing a different result. MASK sets M (Don't Care) on targets — NOT M = M, so target NOT produces the same result and is meaningless.
 > REQはターゲットにT/Fを設定するためNOTで反転（T→F）すると異なる結果になる。MASKはターゲットにM（Don't Care）を設定するためNOT M = Mとなり、ターゲットNOTは同じ結果になり無意味。
@@ -307,8 +299,8 @@ Example: `EXCL(A, NOT B)` means that A=T and B=F cannot coexist — at most one 
 
 例：`EXCL(A, NOT B)` は A=T と B=F が共存できないことを意味します — {A, NOT B} のうち最大1つのみ真。
 
-> **Note**: For REQ, NOT is allowed on source or targets but not both simultaneously. For MASK, NOT is allowed on trigger only (not on targets). See §6.5.
-> **注記**：REQではNOTはソース側またはターゲット側のいずれか一方のみ許可。MASKではNOTはトリガー側のみ許可（ターゲット不可）。§6.5参照。
+> **Note**: For REQ, NOT is allowed on source or target (not both). For MASK, trigger only. See §6.5.
+> **注記**：REQではNOTはソースまたはターゲットの片方のみ。MASKではトリガーのみ。§6.5参照。
 
 ### 6.7 Type Conversion Rules / タイプ変換ルール
 
@@ -496,7 +488,7 @@ The **Compare** tab displays the Decision Table and Coverage Table stacked verti
 
 ---
 
-## 10. NeoCEG Language Reference / NeoCEG言語リファレンス
+## 10. NeoCEG DSL Reference / DSLリファレンス
 
 ### 10.1 File Format / ファイル形式
 
@@ -573,62 +565,11 @@ Use parentheses `()` to override precedence. Example: `p1 AND (p2 OR p3)`.
 - If neither tag is present, the node is observable by default.
 - When re-exporting, only `[unobservable]` is written; `[observable]` is never output.
 
-### 10.6 Formal Grammar (EBNF) / 正式文法 (EBNF)
+### 10.6 Formal Grammar / 正式文法
 
-The formal grammar below defines the complete syntax of the `.nceg` file format in EBNF notation.
+For the complete EBNF grammar definition, see [DSL_Grammar_Specification.md](./DSL_Grammar_Specification.md).
 
-以下の正式文法は、`.nceg` ファイル形式の完全な構文を EBNF 記法で定義します。
-
-**Tip — Using with AI / AIとの連携**: You can give this grammar to an AI assistant (e.g., ChatGPT, Claude) along with your requirements specification, and ask it to generate a `.nceg` file representing the cause-effect graph. The AI can produce a valid `.nceg` definition that you can directly import into NeoCEG.
-
-**ヒント — AIとの連携**: この文法仕様をAIアシスタント（ChatGPT、Claudeなど）に渡し、要求仕様から原因結果グラフを表現する `.nceg` ファイルを生成してもらうことができます。AIが生成した `.nceg` 定義をそのまま NeoCEG にインポートできます。
-
-```ebnf
-(* NeoCEG Grammar v1.2 *)
-
-(* Top-level structure / 最上位構造 *)
-program         = { statement } ;
-statement       = comment | node_definition | constraint_stmt | layout_stmt ;
-comment         = "#" text newline ;
-
-(* Node definitions / ノード定義 *)
-node_definition = identifier ( cause_def | effect_def ) ;
-cause_def       = ":" string [ observable_flag ] ;
-effect_def      = ":=" expression ;
-observable_flag = "[unobservable]" | "[observable]" ;
-
-(* Logical expressions / 論理式 *)
-expression      = or_expr ;
-or_expr         = and_expr { "OR" and_expr } ;
-and_expr        = unary_expr { "AND" unary_expr } ;
-unary_expr      = [ "NOT" ] primary_expr ;
-primary_expr    = identifier | "(" expression ")" ;
-
-(* Constraints / 制約 *)
-constraint_stmt = symmetric_constraint | directional_constraint ;
-symmetric_constraint  = ( "ONE" | "EXCL" | "INCL" ) "(" member_list ")" ;
-req_constraint  = "REQ" "(" constraint_member "->" member_list ")" ;
-mask_constraint = "MASK" "(" constraint_member "->" identifier_list ")" ;
-directional_constraint = req_constraint | mask_constraint ;
-identifier_list = identifier { "," identifier } ;
-member_list     = constraint_member { "," constraint_member } ;
-constraint_member = [ "NOT" ] identifier ;
-
-(* Layout section (optional) / レイアウトセクション（オプション） *)
-layout_stmt     = "@layout" "{" { layout_entry } "}" ;
-layout_entry    = identifier ":" "(" number "," number [ "," number ] ")" ;
-                  (* x, y, optional width / x座標, y座標, 省略可能な幅 *)
-
-(* Lexical elements / 字句要素 *)
-identifier      = ( letter | unicode_letter ) { letter | digit | "_" | unicode_letter } ;
-string          = '"' { string_char | escape_sequence } '"' ;
-string_char     = (* any character except " and \ *) ;
-escape_sequence = "\" ( "n" | '"' | "\" ) ;
-number          = [ "-" ] digit { digit } ;
-letter          = "a" - "z" | "A" - "Z" ;
-digit           = "0" - "9" ;
-unicode_letter  = (* Unicode letters: Hiragana U+3040-309F, Katakana U+30A0-30FF, Kanji U+4E00-9FFF, etc. *) ;
-```
+完全なEBNF文法定義は [DSL_Grammar_Specification.md](./DSL_Grammar_Specification.md) を参照してください。
 
 ---
 
@@ -767,18 +708,63 @@ The clipboard contains both `text/html` (for rich paste) and `text/plain` (CSV f
 
 ---
 
-## 13. Troubleshooting / トラブルシューティング
+## 13. FAQ / よくある質問
 
-| Problem / 問題 | Cause / 原因 | Solution / 解決策 |
-|---|---|---|
-| Decision table shows "No feasible rules" / デシジョンテーブルに「No feasible rules」| All cause combinations violate constraints / 全原因組合せが制約に違反 | Review constraints for contradictions (e.g., ONE + REQ on overlapping nodes) / 制約の矛盾を確認（例：同じノードにONEとREQ） |
-| Node does not turn purple (effect) / ノードが紫（結果）にならない | Node has outgoing edges / 出力エッジがある | Remove outgoing edges from the intended effect node / 意図する結果ノードの出力エッジを削除 |
-| AND/OR badge does not appear / AND/ORバッジが表示されない | Node has no incoming edges / 入力エッジがない | Connect at least one incoming logical edge / 入力論理エッジを少なくとも1つ接続 |
-| Learning Mode auto-switches to Practice / Learning Modeが自動でPracticeに切替 | More than 8 causes (>256 combinations) / 原因が8個超（256組合せ超） | Reduce cause count or use Practice Mode / 原因数を減らすかPractice Modeを使用 |
-| Page leave warning appears / ページ離脱警告が表示される | Unsaved changes exist / 未保存の変更がある | Save via File > Save CEG Definition, or dismiss / Fileメニューで保存するかダイアログを閉じる |
-| "NOT was removed" alert after promotion / 昇格後に「NOT was removed」アラート | Demoted a NOT-bearing source/trigger to target in MASK, or both-sides-NOT would result in REQ / MASK でNOT付きソース/トリガーがターゲットに降格、またはREQで両側NOTになる場合 | Expected behavior — MASK targets cannot have NOT; REQ prohibits NOT on both sides simultaneously. Ctrl+Z to undo / 想定動作。MASKターゲットはNOT不可。REQは両側同時NOT禁止。Ctrl+Zで元に戻す |
-| Coverage shows 0% / カバレッジが0% | No effects in the graph / グラフに結果ノードがない | Ensure at least one node has no outgoing logical edges / 出力論理エッジのないノードが最低1つ必要 |
-| Import error with line number / 行番号付きインポートエラー | Syntax error in `.nceg` file / `.nceg`ファイルの構文エラー | Check the indicated line for typos, missing quotes, or invalid keywords / 指定行のタイプミス、引用符不足、無効なキーワードを確認 |
+**Q: Decision table shows "No feasible rules" — is this a bug?**
+**Q: デシジョンテーブルに「No feasible rules」と表示されました。バグですか？**
+
+This usually means that your constraints are contradicting each other. For example, applying both ONE and REQ to overlapping nodes can make all combinations infeasible. Try reviewing your constraint definitions for unintended conflicts.
+
+制約同士が矛盾している可能性があります。たとえば、重複するノードに ONE と REQ を両方適用すると、すべての組み合わせが実行不能になることがあります。制約の定義に意図しない矛盾がないか確認してみてください。
+
+**Q: My node won't turn purple (effect). What am I doing wrong?**
+**Q: ノードが紫色（結果）になりません。何が間違っていますか？**
+
+A node is recognized as an effect only when it has no outgoing logical edges. If the node still has outgoing edges, it is treated as an intermediate node. Check whether an unintended edge is connected from that node.
+
+ノードは出力論理エッジがない場合にのみ結果ノードとして認識されます。出力エッジが残っていると中間ノードとして扱われます。意図しないエッジが接続されていないか確認してみてください。
+
+**Q: The AND/OR badge doesn't appear on my node.**
+**Q: ノードに AND/OR バッジが表示されません。**
+
+The badge appears when a node has incoming logical edges. If the node has no incoming edges, it is a cause node and does not display a logic badge. You may have forgotten to connect an edge to that node.
+
+バッジはノードに入力論理エッジがある場合に表示されます。入力エッジがなければ原因ノードであり、ロジックバッジは表示されません。エッジの接続を忘れていないか確認してみてください。
+
+**Q: Learning Mode automatically switched to Practice Mode. Why?**
+**Q: Learning Mode が自動的に Practice Mode に切り替わりました。なぜですか？**
+
+Learning Mode displays the full exhaustive decision table, which grows exponentially with the number of causes. When causes exceed 8 (more than 256 combinations), NeoCEG automatically switches to Practice Mode to maintain performance. This is expected behavior — consider whether some causes can be consolidated, or continue working in Practice Mode.
+
+Learning Mode は完全な組み合わせデシジョンテーブルを表示するため、原因数に対して指数的に増大します。原因が8個を超える（256組み合わせ超）と、パフォーマンス維持のため自動的に Practice Mode に切り替わります。これは想定通りの動作です。原因を統合できないか検討するか、そのまま Practice Mode でお使いください。
+
+**Q: A "NOT was removed" alert appeared after I changed a constraint. Did I lose something?**
+**Q: 制約を変更したら「NOT was removed」というアラートが出ました。何か失われましたか？**
+
+This happens when editing a constraint would create an invalid combination — for example, NOT on both sides of a REQ, or NOT on a MASK target. NeoCEG automatically removes the NOT to keep the model valid and notifies you. If this wasn't what you intended, press Ctrl+Z (Cmd+Z on Mac) to undo.
+
+制約の編集により無効な組み合わせが生じる場合に発生します。たとえば REQ の両側に NOT がつく場合や、MASK ターゲットに NOT がつく場合です。NeoCEG はモデルの整合性を保つために自動的に NOT を除去し、通知します。意図した操作でなければ、Ctrl+Z（Mac は Cmd+Z）で元に戻せます。
+
+**Q: Coverage shows 0%. Is the calculation broken?**
+**Q: カバレッジが 0% と表示されます。計算がおかしいのでは？**
+
+Coverage is calculated based on effect nodes. If your graph has no effect nodes (i.e., every node has at least one outgoing logical edge), there is nothing to measure coverage against. Check whether your intended effect nodes have unintended outgoing edges.
+
+カバレッジは結果ノードを基に計算されます。グラフに結果ノードがない場合（すべてのノードに出力論理エッジがある場合）、カバレッジの計算対象がありません。意図した結果ノードに不要な出力エッジがついていないか確認してみてください。
+
+**Q: I get an import error with a line number. What should I look for?**
+**Q: 行番号付きのインポートエラーが出ます。何を確認すればよいですか？**
+
+The error message indicates where the parser encountered a problem in the `.nceg` file. Common mistakes include missing quotation marks around labels, typos in keywords (AND, OR, NOT, etc.), or incorrect constraint syntax. Check the indicated line and its surroundings.
+
+エラーメッセージは `.nceg` ファイル内でパーサーが問題を検出した箇所を示しています。よくある間違いは、ラベルの引用符の付け忘れ、キーワード（AND, OR, NOT など）の綴り間違い、制約構文の誤りなどです。指定された行とその前後を確認してみてください。
+
+**Q: A page leave warning appeared. Is my work saved?**
+**Q: ページ離脱の警告が出ました。作業は保存されていますか？**
+
+This warning appears when you have unsaved changes. Your work is still in the browser, but has not been saved to a file. Use File > Save CEG Definition to save before leaving, or dismiss the warning if you don't need the changes.
+
+この警告は未保存の変更がある場合に表示されます。作業はブラウザ上にまだ残っていますが、ファイルには保存されていません。離脱前に File > Save CEG Definition で保存するか、変更が不要であれば警告を閉じてください。
 
 ---
 
@@ -805,17 +791,11 @@ The clipboard contains both `text/html` (for rich paste) and `text/plain` (CSV f
 
 ## Appendix A: References / 参考文献
 
-- Myers, G.J., Badgett, T., Sandler, C. [*The Art of Software Testing*, 3rd Edition](https://www.oreilly.com/library/view/the-art-of/9781118133156/toc.html), Chapter 4 — The foundational reference for Cause-Effect Graph methodology / 原因結果グラフ法の基礎文献
-- [ISO/IEC/IEEE 29119-4:2021](https://www.iso.org/standard/79430.html) "Software and systems engineering — Software testing — Part 4: Test techniques" — International standard covering CEG as a test technique / CEGをテスト技法として規定する国際規格
-- 秋山浩一 [『ソフトウェアテスト技法ドリル【第2版】』](https://www.juse-p.co.jp/products/view/934) 日科技連出版社 — Software Test Technique Drill, 2nd Edition
-- 加瀬正樹 [CEGTest](http://softest.cocolog-nifty.com/blog/cegtest.html) — The original CEG test design tool that NeoCEG is based on / NeoCEGの基となったオリジナルのCEGテスト設計ツール
-- sho1884 [ブールグラフでロジックを整理してデシジョンテーブルと条件式を自動生成する](https://note.com/sho1884/n/n4afa22873334) (note) — Organizing Logic with Boolean Graphs to Auto-Generate Decision Tables and Conditional Expressions
-- sho1884 [ロジックとアーキテクチャの境界を設計する（その１）](https://note.com/sho1884/n/n372d4dbf49dc) (note) — Designing the Boundary Between Logic and Architecture (Part 1)
-- sho1884 [原因結果グラフ法がテストを減らすときの「考え方」](https://qiita.com/sho1884/items/f2b3a887546e87bb734a) (Qiita) — The Concept Behind How Cause-Effect Graphing Reduces Tests
-- sho1884 [原因結果グラフ法と MC/DC カバレッジ](https://qiita.com/sho1884/items/d8b34102e9eb47643866) (Qiita) — Cause-Effect Graphing and MC/DC Coverage
-- sho1884 [原因結果グラフ法における制約関係のチートシート](https://qiita.com/sho1884/items/32f8d4d6454e48f1c33c) (Qiita) — Cheat Sheet for Constraints in Cause-Effect Graph Method
-- sho1884 [原因結果グラフ法における制約関係解説（Require制約編）](https://qiita.com/sho1884/items/fc37f3953f4aeb061e60) (Qiita) — Constraint Relationships in CEG: Require Constraint
-- sho1884 [原因結果グラフ法における制約関係解説（Mask制約編）](https://qiita.com/sho1884/items/f1b3668b2b134dddad4a) (Qiita) — Constraint Relationships in CEG: Mask Constraint
+- Myers, G.J., Badgett, T., Sandler, C. "The Art of Software Testing", 3rd Edition, Chapter 4
+- ISO/IEC/IEEE 29119-4:2021 "Software and systems engineering — Software testing — Part 4: Test techniques"
+- [DSL Grammar Specification](./DSL_Grammar_Specification.md) — Formal EBNF grammar for `.nceg` files
+- [GUI Specification](./GUI_Specification.md) — Complete GUI operations specification
+- [Algorithm Design](./Algorithm_Design.md) — CEG algorithm implementation details
 
 ---
 
