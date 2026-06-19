@@ -39,6 +39,11 @@ jobs:
           if [ -d NeoCEG/Samples ]; then
             cp -r NeoCEG/Samples _site/NeoCEG/Samples
           fi
+          # NeoCombi sample files (loaded by the app via ?file=<url>)
+          if [ -d NeoCombi/Samples ]; then
+            mkdir -p _site/NeoCombi
+            cp -r NeoCombi/Samples _site/NeoCombi/Samples
+          fi
           # Root-level files (exclude dirs and hidden files)
           for f in $(find . -maxdepth 1 -type f ! -name '.*'); do
             cp "$f" _site/
