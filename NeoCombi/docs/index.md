@@ -1,19 +1,19 @@
 ---
-description: "NeoCombi — a combinatorial test design tool. Author factors, levels, and PICT-style constraints; generate pairwise sets or full decision tables. Free, open-source PWA."
+description: "NeoCombi — a combinatorial test design tool. Author factors, levels, and PICT-compatible constraints; generate pairwise sets or full decision tables. Free, open-source PWA."
 ---
 
 # NeoCombi Documentation / NeoCombi ドキュメント
 
 **NeoCombi** is a combinatorial test design tool. You describe a problem space as
 **factors** and their **levels**, rule out impossible combinations with
-**constraints** written in a PICT-style DSL, and generate test cases two ways:
+**constraints** written in a PICT-compatible DSL (a subset of PICT), and generate test cases two ways:
 a compact **pairwise / N-wise** set (via Microsoft PICT) or a full **decision
 table** (every combination, with the forbidden ones marked). Authoring, the
 forbidden view, the coverage matrix, and decision-table generation all run in
 your browser.
 
 **NeoCombi** は組み合わせテスト設計ツールです。問題空間を**因子**と**水準**で表し、
-あり得ない組み合わせを **PICT 風の DSL** による**制約**で除外し、テストケースを2通りで
+あり得ない組み合わせを **PICT 互換の DSL** による**制約**で除外し、テストケースを2通りで
 生成します ── コンパクトな**ペアワイズ / N-wise**（Microsoft PICT 経由）と、全組み合わせの
 **デシジョンテーブル**（禁止行は印付き）。オーサリング・禁則ビュー・総当たり表・
 デシジョンテーブル生成はブラウザ内で動きます。
@@ -64,8 +64,6 @@ Samples load via a `?file=<url>` parameter:
 
 ## Sibling tools / 姉妹ツール
 
-NeoCombi is one of three sibling test-design tools:
-[NeoCEG](https://github.com/sho1884/NeoCEG) (cause-effect graphs),
-**NeoCombi** (combinatorial), and
-[ModelLogue](https://github.com/sho1884/ModelLogue) (AI-assisted review).
-NeoCombi and NeoCEG are deterministic converters with no embedded AI.
+NeoCombi has a sibling test-design tool,
+[NeoCEG](https://github.com/sho1884/NeoCEG) (cause-effect graphs). Both are
+deterministic converters with no embedded AI.
