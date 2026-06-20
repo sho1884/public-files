@@ -1,0 +1,52 @@
+site_name: NeoCombi Documentation
+site_url: https://sho1884.github.io/public-files/NeoCombi/
+site_description: >-
+  NeoCombi is a combinatorial test design tool. Author factors, levels, and
+  PICT-style constraints, then generate pairwise sets or full decision tables.
+repo_url: https://github.com/sho1884/NeoCombi
+repo_name: sho1884/NeoCombi
+docs_dir: docs
+
+theme:
+  name: material
+  language: en
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - search.suggest
+    - content.code.copy
+    - navigation.top
+    - navigation.tracking
+
+markdown_extensions:
+  - tables
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - toc:
+      permalink: true
+  - meta
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/sho1884/NeoCombi
+
+nav:
+  - Home: index.md
+  - User Manual: User_Manual.md
+  - Deployment Guide: Deployment_Guide.md
+  - DSL Grammar (EBNF): DSL_Grammar_Specification.md

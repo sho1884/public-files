@@ -30,6 +30,9 @@ jobs:
       - name: Build NeoCEG docs
         run: cd NeoCEG && mkdocs build
 
+      - name: Build NeoCombi docs
+        run: cd NeoCombi && mkdocs build
+
       - name: Assemble site
         run: |
           mkdir -p _site/NeoCEG
@@ -39,9 +42,11 @@ jobs:
           if [ -d NeoCEG/Samples ]; then
             cp -r NeoCEG/Samples _site/NeoCEG/Samples
           fi
+          # NeoCombi MkDocs output
+          mkdir -p _site/NeoCombi
+          cp -r NeoCombi/site/* _site/NeoCombi/
           # NeoCombi sample files (loaded by the app via ?file=<url>)
           if [ -d NeoCombi/Samples ]; then
-            mkdir -p _site/NeoCombi
             cp -r NeoCombi/Samples _site/NeoCombi/Samples
           fi
           # Root-level files (exclude dirs and hidden files)
