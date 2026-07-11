@@ -1,0 +1,45 @@
+site_name: ModelLogue ユーザーマニュアル
+site_url: https://sho1884.github.io/public-files/ModelLogue/
+site_description: >-
+  ModelLogue はモデルレビューを支援するツールです。状態遷移図・要求図・プロセス図の
+  3 つのモデル型を、テキスト → 正規モデル → 図＋表 のパターンでレビューします。
+docs_dir: docs
+
+theme:
+  name: material
+  language: ja
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - search.suggest
+    - content.code.copy
+    - navigation.top
+    - navigation.tracking
+
+markdown_extensions:
+  - tables
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - toc:
+      permalink: true
+  - meta
+
+nav:
+  - はじめに・共通操作: index.md
+  - 状態遷移図（State machine）: state-machine.md
+  - 要求図（Requirement）: requirement.md
+  - プロセス図（Process）: process.md
