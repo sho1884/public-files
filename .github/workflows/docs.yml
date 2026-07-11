@@ -55,6 +55,10 @@ jobs:
           # ModelLogue MkDocs output
           mkdir -p _site/ModelLogue
           cp -r ModelLogue/site/* _site/ModelLogue/
+          # ModelLogue sample files (loaded by the app via ?file=<url>)
+          if [ -d ModelLogue/Samples ]; then
+            cp -r ModelLogue/Samples _site/ModelLogue/Samples
+          fi
           # Root-level files (exclude dirs and hidden files)
           for f in $(find . -maxdepth 1 -type f ! -name '.*'); do
             cp "$f" _site/
