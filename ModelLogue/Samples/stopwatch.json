@@ -1,0 +1,32 @@
+{
+  "id": "5c2b9a10-6f4e-4d2a-9b7c-1e3a8f0d2c44",
+  "name": "サンプル：ストップウォッチ（スタート／ラップ）",
+  "createdAt": "2026-07-06T11:12:02.681Z",
+  "updatedAt": "2026-07-06T13:36:14.066Z",
+  "modelTypeId": "state-machine",
+  "plantUmlSource": "@startuml\n' スタートとラップの 2 ボタンだけを持つストップウォッチ\n' 状態遷移図サブセット（ADR-009, 1階層の複合状態）に準拠\n\nstate \"リセット（0表示）\" as Reset\nstate \"停止中（経過時間表示）\" as Stopped\n\nstate \"計測中\" as Running {\n  [*] --> Normal\n  state \"通常表示（計測中）\" as Normal\n  state \"ラップ表示（内部計測は継続）\" as Lap\n  Normal --> Lap : ラップ / 表示を固定\n  Lap --> Normal : ラップ / 現在の経過時間の表示に戻る\n}\n\n[*] --> Reset\nReset --> Running : スタート / 計測開始\nRunning --> Stopped : スタート / 計測停止、経過時間を表示\nStopped --> Running : スタート / 計測再開\nStopped --> Reset : ラップ / 経過時間をゼロに戻す\nReset --> Reset : ラップ / 0表示を維持\n@enduml\n",
+  "requirementsText": "スタートとラップの 2 つのボタンだけを持つストップウォッチ。スタートで計測開始・停止・再開を行い、ラップで表示を固定できる（内部計測は続く）。停止中にラップを押すと経過時間をゼロに戻す。",
+  "messages": [
+    {
+      "id": "dc3f94b5-8399-4481-b83b-63d9c67afdab",
+      "role": "user",
+      "source": "facilitator",
+      "content": "スタートとラップだけのストップウォッチを状態遷移図にしました。計測中に「通常表示」と「ラップ表示」を切り替えられる点を、複合状態「計測中」でまとめています。抜けがないか確認してください。",
+      "timestamp": "2026-07-06T11:12:09.818Z"
+    },
+    {
+      "id": "70bdc2b0-9feb-4695-92ef-186add2783d2",
+      "role": "assistant",
+      "source": "ai",
+      "content": "「計測中」を複合状態としてまとめ、内部で通常表示 ⇄ ラップ表示を切り替える構造がわかりやすいです。リセット → 計測開始 → 停止 →（再開／リセット）の往復も過不足なく、ラップで表示を固定しても内部の計測が続く点が表現できています。停止中にラップで初期表示(0)へ戻る遷移、リセット中にラップを押しても 0 表示を維持する自己遷移も定義済みで、2 ボタンだけの操作系として矛盾がありません。",
+      "timestamp": "2026-07-06T11:12:22.979Z"
+    }
+  ],
+  "sourceHistory": [],
+  "markers": [],
+  "outcome": {
+    "status": "consensus",
+    "closedAt": "2026-07-06T13:36:14.066Z",
+    "note": "スタート／ラップの 2 ボタンで想定する操作をすべて表現できていると合意しました。"
+  }
+}
