@@ -5,28 +5,39 @@
   "updatedAt": "2026-04-12T14:55:26.543Z",
   "modelTypeId": "state-machine",
   "plantUmlSource": "@startuml\n' ModelLogue のレビュー作業フロー\n' 状態遷移図サブセット（ADR-009, 1階層の複合状態）に準拠\n\nstate \"シード段階\" as Seed {\n  [*] --> SelectType\n  state \"モデル型を選択\" as SelectType\n  state \"AIに生成を依頼\" as AIGenerate\n  state \"自分でPlantUMLを記述\" as HumanWrite\n  state \"初期モデル完成\" as Drafted\n  SelectType --> AIGenerate : 要求を書いて Generate Model\n  SelectType --> HumanWrite : Source に PlantUML を貼る\n  AIGenerate --> Drafted\n  HumanWrite --> Drafted\n}\n\nstate \"レビュー段階\" as Review {\n  [*] --> Inspecting\n  state \"モデルの確認・マーカー付け\" as Inspecting\n  state \"AIへ質問・指示\" as Asking\n  state \"AIの回答・修正提案\" as Answering\n  state \"モデルへ反映(Apply)・直接修正\" as Editing\n  Inspecting --> Asking : 気になる点がある\n  Asking --> Answering\n  Answering --> Editing : 提案を受け入れる\n  Editing --> Inspecting\n  Inspecting --> Editing : ソースを直接編集\n}\n\nstate \"合意 (Agreed)\" as Agreed\nstate \"保留 (Postponed)\" as Postponed\nstate \"仕様側の課題 (Spec issue)\" as SpecIssue\n\n[*] --> Seed : 新規レビュー\nSeed --> Review : 初期モデル完成\nReview --> Agreed : 指摘がすべて解消\nReview --> Postponed : 未解決の論点が残る\nReview --> SpecIssue : 上流の要求に問題\n\nAgreed --> [*] : Save & finish\nPostponed --> [*] : Save & finish\nSpecIssue --> [*] : Save & finish\n@enduml\n",
-  "requirementsText": "ModelLogue 上でのレビュー作業の流れ（モデル型選択 → 初期モデル作成 → 確認・対話・修正のループ → 合意／保留／仕様課題）を状態遷移図として表す。シード段階とレビュー段階を、それぞれ 1 階層の複合状態としてまとめる。",
+  "requirementsText": "ModelLogue 上でのレビュー作業の流れ（モデル型選択 → 初期モデル作成 → 確認・対話・修正のループ → 合意／保留／仕様課題）を状態遷移図として表す。",
   "messages": [
     {
       "id": "c93636b5-b05b-43ec-8621-f96aacb46644",
       "role": "user",
       "source": "facilitator",
-      "content": "ModelLogue のレビュー工程を状態遷移図にしてみました。シード段階とレビュー段階を複合状態でまとめています。抜けや不自然な遷移がないか、一緒に確認してください。",
+      "content": "ModelLogue 自身のレビュー工程を状態遷移図にしてみました。まずは各段階をすべてフラットに並べています。抜けや不自然な遷移がないか、一緒に確認してください。",
       "timestamp": "2026-04-12T14:51:59.477Z"
     },
     {
       "id": "95aaf199-8579-4d44-ab15-1bbfe81ec038",
       "role": "assistant",
       "source": "ai",
-      "content": "「シード段階」（モデル型を選択 → 初期モデルの作成：AI 生成／自分で記述）と「レビュー段階」（確認・マーカー付け → AI へ質問 → 回答・提案 → 反映）を、それぞれ複合状態としてまとめた構造がわかりやすいです。シード段階から初期モデル完成でレビュー段階へ入り、レビュー段階から合意 / 保留 / 仕様側の課題へ分岐して Save & finish で終端に到達する流れも過不足なく表現できています。3 つの結論がいずれも [*] に到達しており、終端も明確です。",
-      "timestamp": "2026-04-12T14:52:15.544Z"
+      "content": "全体の流れは過不足なく表現できています。ひとつ提案です。状態をよく見ると「モデル型を選択 → 初期モデル完成」までがシード段階、「モデルの確認・マーカー付け」以降のループがレビュー段階、という 2 つのまとまりになっています。この 2 つをそれぞれ複合状態（シード段階／レビュー段階）としてまとめると、『シード → レビュー → 合意／保留／仕様課題』という大きな流れが一目で分かるようになります。まとめた版を提案します。",
+      "timestamp": "2026-04-12T14:52:15.544Z",
+      "suggestedSource": "@startuml\n' ModelLogue のレビュー作業フロー\n' 状態遷移図サブセット（ADR-009, 1階層の複合状態）に準拠\n\nstate \"シード段階\" as Seed {\n  [*] --> SelectType\n  state \"モデル型を選択\" as SelectType\n  state \"AIに生成を依頼\" as AIGenerate\n  state \"自分でPlantUMLを記述\" as HumanWrite\n  state \"初期モデル完成\" as Drafted\n  SelectType --> AIGenerate : 要求を書いて Generate Model\n  SelectType --> HumanWrite : Source に PlantUML を貼る\n  AIGenerate --> Drafted\n  HumanWrite --> Drafted\n}\n\nstate \"レビュー段階\" as Review {\n  [*] --> Inspecting\n  state \"モデルの確認・マーカー付け\" as Inspecting\n  state \"AIへ質問・指示\" as Asking\n  state \"AIの回答・修正提案\" as Answering\n  state \"モデルへ反映(Apply)・直接修正\" as Editing\n  Inspecting --> Asking : 気になる点がある\n  Asking --> Answering\n  Answering --> Editing : 提案を受け入れる\n  Editing --> Inspecting\n  Inspecting --> Editing : ソースを直接編集\n}\n\nstate \"合意 (Agreed)\" as Agreed\nstate \"保留 (Postponed)\" as Postponed\nstate \"仕様側の課題 (Spec issue)\" as SpecIssue\n\n[*] --> Seed : 新規レビュー\nSeed --> Review : 初期モデル完成\nReview --> Agreed : 指摘がすべて解消\nReview --> Postponed : 未解決の論点が残る\nReview --> SpecIssue : 上流の要求に問題\n\nAgreed --> [*] : Save & finish\nPostponed --> [*] : Save & finish\nSpecIssue --> [*] : Save & finish\n@enduml\n",
+      "applied": true,
+      "frozenBeforeSource": "@startuml\n' ModelLogue のレビュー作業フロー（フラット版）\n\nstate \"モデル型を選択\" as SelectType\nstate \"AIに生成を依頼\" as AIGenerate\nstate \"自分でPlantUMLを記述\" as HumanWrite\nstate \"モデルの確認・マーカー付け\" as Inspecting\nstate \"AIへ質問・指示\" as Asking\nstate \"AIの回答・修正提案\" as Answering\nstate \"モデルへ反映(Apply)・直接修正\" as Editing\nstate \"合意 (Agreed)\" as Agreed\nstate \"保留 (Postponed)\" as Postponed\nstate \"仕様側の課題 (Spec issue)\" as SpecIssue\n\n[*] --> SelectType : 新規レビュー\nSelectType --> AIGenerate : 要求を書いて Generate Model\nSelectType --> HumanWrite : Source に PlantUML を貼る\nAIGenerate --> Inspecting : 初期モデル完成\nHumanWrite --> Inspecting : 初期モデル完成\n\nInspecting --> Asking : 気になる点がある\nAsking --> Answering\nAnswering --> Editing : 提案を受け入れる\nEditing --> Inspecting\nInspecting --> Editing : ソースを直接編集\n\nInspecting --> Agreed : 指摘がすべて解消\nInspecting --> Postponed : 未解決の論点が残る\nInspecting --> SpecIssue : 上流の要求に問題\n\nAgreed --> [*] : Save & finish\nPostponed --> [*] : Save & finish\nSpecIssue --> [*] : Save & finish\n@enduml\n"
     }
   ],
-  "sourceHistory": [],
+  "sourceHistory": [
+    {
+      "id": "f9e29ff9-60a4-43f9-8566-18b977163c69",
+      "version": 1,
+      "source": "@startuml\n' ModelLogue のレビュー作業フロー（フラット版）\n\nstate \"モデル型を選択\" as SelectType\nstate \"AIに生成を依頼\" as AIGenerate\nstate \"自分でPlantUMLを記述\" as HumanWrite\nstate \"モデルの確認・マーカー付け\" as Inspecting\nstate \"AIへ質問・指示\" as Asking\nstate \"AIの回答・修正提案\" as Answering\nstate \"モデルへ反映(Apply)・直接修正\" as Editing\nstate \"合意 (Agreed)\" as Agreed\nstate \"保留 (Postponed)\" as Postponed\nstate \"仕様側の課題 (Spec issue)\" as SpecIssue\n\n[*] --> SelectType : 新規レビュー\nSelectType --> AIGenerate : 要求を書いて Generate Model\nSelectType --> HumanWrite : Source に PlantUML を貼る\nAIGenerate --> Inspecting : 初期モデル完成\nHumanWrite --> Inspecting : 初期モデル完成\n\nInspecting --> Asking : 気になる点がある\nAsking --> Answering\nAnswering --> Editing : 提案を受け入れる\nEditing --> Inspecting\nInspecting --> Editing : ソースを直接編集\n\nInspecting --> Agreed : 指摘がすべて解消\nInspecting --> Postponed : 未解決の論点が残る\nInspecting --> SpecIssue : 上流の要求に問題\n\nAgreed --> [*] : Save & finish\nPostponed --> [*] : Save & finish\nSpecIssue --> [*] : Save & finish\n@enduml\n",
+      "timestamp": "2026-04-12T14:52:34.256Z",
+      "triggeredBy": "95aaf199-8579-4d44-ab15-1bbfe81ec038"
+    }
+  ],
   "markers": [],
   "outcome": {
     "status": "consensus",
     "closedAt": "2026-04-12T14:55:26.543Z",
-    "note": "参加メンバー全員がこれで問題ないと合意しました。"
+    "note": "シード段階／レビュー段階を複合状態でまとめる案で全員が合意しました。フラット版は Undo で確認できます。"
   }
 }

@@ -11,22 +11,50 @@
       "id": "dc3f94b5-8399-4481-b83b-63d9c67afdab",
       "role": "user",
       "source": "facilitator",
-      "content": "スタートとラップだけのストップウォッチを状態遷移図にしました。計測中に「通常表示」と「ラップ表示」を切り替えられる点を、複合状態「計測中」でまとめています。抜けがないか確認してください。",
+      "content": "スタートとラップの 2 つのボタンだけを持つストップウォッチを状態遷移図にしてください。計測中はラップで表示を固定でき、その間も内部の計測は続きます。停止中にラップを押すと 0 に戻します。",
       "timestamp": "2026-07-06T11:12:09.818Z"
     },
     {
       "id": "70bdc2b0-9feb-4695-92ef-186add2783d2",
       "role": "assistant",
       "source": "ai",
-      "content": "「計測中」を複合状態としてまとめ、内部で通常表示 ⇄ ラップ表示を切り替える構造がわかりやすいです。リセット → 計測開始 → 停止 →（再開／リセット）の往復も過不足なく、ラップで表示を固定しても内部の計測が続く点が表現できています。停止中にラップで初期表示(0)へ戻る遷移、リセット中にラップを押しても 0 表示を維持する自己遷移も定義済みで、2 ボタンだけの操作系として矛盾がありません。",
-      "timestamp": "2026-07-06T11:12:22.979Z"
+      "content": "まずは各状態をフラットに並べた版を提案します。リセット・停止中・通常表示・ラップ表示の 4 状態を置き、スタート／ラップの操作で遷移させています。通常表示とラップ表示は、どちらも計測を続けたままの状態です。",
+      "timestamp": "2026-07-06T11:12:22.979Z",
+      "suggestedSource": "@startuml\n' スタートとラップの 2 ボタンだけを持つストップウォッチ（フラット版）\n\nstate \"リセット（0表示）\" as Reset\nstate \"停止中（経過時間表示）\" as Stopped\nstate \"通常表示（計測中）\" as Normal\nstate \"ラップ表示（内部計測は継続）\" as Lap\n\n[*] --> Reset\nReset --> Normal : スタート / 計測開始\nNormal --> Stopped : スタート / 計測停止、経過時間を表示\nLap --> Stopped : スタート / 計測停止、経過時間を表示\nStopped --> Normal : スタート / 計測再開\nStopped --> Reset : ラップ / 経過時間をゼロに戻す\nReset --> Reset : ラップ / 0表示を維持\nNormal --> Lap : ラップ / 表示を固定\nLap --> Normal : ラップ / 現在の経過時間の表示に戻る\n@enduml\n",
+      "applied": true,
+      "frozenBeforeSource": ""
+    },
+    {
+      "id": "2b3edbfe-ed59-4fb2-a724-cf8440adda45",
+      "role": "user",
+      "source": "facilitator",
+      "content": "「通常表示」と「ラップ表示」は、どちらも計測中の状態ですよね。この 2 つを「計測中」という複合状態にまとめて、その内部で切り替える形にできますか？ その方が全体像がつかみやすいと思います。",
+      "timestamp": "2026-07-06T11:15:02.000Z"
+    },
+    {
+      "id": "b35417bd-b1b2-46a5-a8a2-e0fe9612900b",
+      "role": "assistant",
+      "source": "ai",
+      "content": "はい、「計測中」を複合状態としてまとめ、その内部で通常表示 ⇄ ラップ表示を切り替える形に整理しました。外から見ると リセット → 計測中 → 停止中 →（再開／リセット）の往復になり、ラップで表示を固定しても内部の計測が続く点は複合状態の内部遷移として表せています。",
+      "timestamp": "2026-07-06T11:15:20.000Z",
+      "suggestedSource": "@startuml\n' スタートとラップの 2 ボタンだけを持つストップウォッチ\n' 状態遷移図サブセット（ADR-009, 1階層の複合状態）に準拠\n\nstate \"リセット（0表示）\" as Reset\nstate \"停止中（経過時間表示）\" as Stopped\n\nstate \"計測中\" as Running {\n  [*] --> Normal\n  state \"通常表示（計測中）\" as Normal\n  state \"ラップ表示（内部計測は継続）\" as Lap\n  Normal --> Lap : ラップ / 表示を固定\n  Lap --> Normal : ラップ / 現在の経過時間の表示に戻る\n}\n\n[*] --> Reset\nReset --> Running : スタート / 計測開始\nRunning --> Stopped : スタート / 計測停止、経過時間を表示\nStopped --> Running : スタート / 計測再開\nStopped --> Reset : ラップ / 経過時間をゼロに戻す\nReset --> Reset : ラップ / 0表示を維持\n@enduml\n",
+      "applied": true,
+      "frozenBeforeSource": "@startuml\n' スタートとラップの 2 ボタンだけを持つストップウォッチ（フラット版）\n\nstate \"リセット（0表示）\" as Reset\nstate \"停止中（経過時間表示）\" as Stopped\nstate \"通常表示（計測中）\" as Normal\nstate \"ラップ表示（内部計測は継続）\" as Lap\n\n[*] --> Reset\nReset --> Normal : スタート / 計測開始\nNormal --> Stopped : スタート / 計測停止、経過時間を表示\nLap --> Stopped : スタート / 計測停止、経過時間を表示\nStopped --> Normal : スタート / 計測再開\nStopped --> Reset : ラップ / 経過時間をゼロに戻す\nReset --> Reset : ラップ / 0表示を維持\nNormal --> Lap : ラップ / 表示を固定\nLap --> Normal : ラップ / 現在の経過時間の表示に戻る\n@enduml\n"
     }
   ],
-  "sourceHistory": [],
+  "sourceHistory": [
+    {
+      "id": "741b1ea7-8cdc-473f-bead-fa44d0ea3a21",
+      "version": 1,
+      "source": "@startuml\n' スタートとラップの 2 ボタンだけを持つストップウォッチ（フラット版）\n\nstate \"リセット（0表示）\" as Reset\nstate \"停止中（経過時間表示）\" as Stopped\nstate \"通常表示（計測中）\" as Normal\nstate \"ラップ表示（内部計測は継続）\" as Lap\n\n[*] --> Reset\nReset --> Normal : スタート / 計測開始\nNormal --> Stopped : スタート / 計測停止、経過時間を表示\nLap --> Stopped : スタート / 計測停止、経過時間を表示\nStopped --> Normal : スタート / 計測再開\nStopped --> Reset : ラップ / 経過時間をゼロに戻す\nReset --> Reset : ラップ / 0表示を維持\nNormal --> Lap : ラップ / 表示を固定\nLap --> Normal : ラップ / 現在の経過時間の表示に戻る\n@enduml\n",
+      "timestamp": "2026-07-06T11:15:25.000Z",
+      "triggeredBy": "b35417bd-b1b2-46a5-a8a2-e0fe9612900b"
+    }
+  ],
   "markers": [],
   "outcome": {
     "status": "consensus",
     "closedAt": "2026-07-06T13:36:14.066Z",
-    "note": "スタート／ラップの 2 ボタンで想定する操作をすべて表現できていると合意しました。"
+    "note": "「計測中」を複合状態にまとめる案で合意しました。まとめる前のフラット版は Undo で確認できます。"
   }
 }
