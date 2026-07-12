@@ -4,6 +4,10 @@ description: "NeoCEG — a Cause-Effect Graph test design tool (ISO/IEC/IEEE 291
 
 # NeoCEG Documentation / NeoCEG ドキュメント
 
+![NeoCEG — draw a cause-effect graph and get an optimized decision table instantly / 原因結果グラフを描くだけで、最適化されたデシジョンテーブルが即座に得られる](images/NeoCEG_screenshot_en.png)
+
+<p align="center"><em>Draw the logic as a graph (top); the optimized decision table and coverage update reactively (bottom). / 論理をグラフで描くと（上）、最適化されたデシジョンテーブルとカバレッジがリアクティブに更新される（下）。</em></p>
+
 **NeoCEG** is a test design tool based on the Cause-Effect Graphing technique, a method specified in ISO/IEC/IEEE 29119-4:2021.
 Simply draw logical and constraint relationships as a graph, and NeoCEG automatically generates an optimized decision table and a coverage table for efficient test coverage review.
 
