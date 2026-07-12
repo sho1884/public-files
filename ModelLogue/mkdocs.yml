@@ -1,8 +1,11 @@
-site_name: ModelLogue ユーザーマニュアル
+site_name: ModelLogue User Manual / ModelLogue ユーザーマニュアル
 site_url: https://sho1884.github.io/public-files/ModelLogue/
 site_description: >-
-  ModelLogue はモデルレビューを支援するツールです。状態遷移図・要求図・プロセス図の
-  3 つのモデル型を、テキスト → 正規モデル → 図＋表 のパターンでレビューします。
+  ModelLogue is a tool for reviewing software design models — state machines,
+  requirement diagrams, and process diagrams — via a text → canonical model →
+  diagram + table pattern. / ModelLogue はモデルレビューを支援するツールです。
+  状態遷移図・要求図・プロセス図の 3 つのモデル型を、テキスト → 正規モデル → 図＋表
+  のパターンでレビューします。
 docs_dir: docs
 
 theme:
@@ -39,7 +42,7 @@ markdown_extensions:
   - meta
 
 nav:
-  - はじめに・共通操作: index.md
-  - 状態遷移図（State machine）: state-machine.md
-  - 要求図（Requirement）: requirement.md
-  - プロセス図（Process）: process.md
+  - Getting started & common features / はじめに・共通操作: index.md
+  - State machine / 状態遷移図: state-machine.md
+  - Requirement / 要求図: requirement.md
+  - Process / プロセス図: process.md
