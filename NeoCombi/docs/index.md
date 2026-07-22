@@ -24,7 +24,7 @@ your browser.
 
 ## The app at a glance / 画面の全体像
 
-![The NeoCombi screen with the shopping-site sample: the Coverage matrix cross-tabulates every factor pair (covered 102 / missed 0 / forbidden 62 — 100% pair coverage), with the factor & level editor below. / NeoCombi の画面（サンプル：ショッピングサイト）。全因子ペアを総当たりする総当たり表（covered 102／missed 0／forbidden 62＝ペア被覆 100%）と、下段の因子・水準エディタ。](assets/Screenshot_Coverage.png)
+![The NeoCombi screen with the shopping-site sample: the Coverage matrix cross-tabulates every factor pair (covered 88 / missed 0 / forbidden 59 — 100% pair coverage), with the factor & level editor below. / NeoCombi の画面（サンプル：ショッピングサイト）。全因子ペアを総当たりする総当たり表（covered 88／missed 0／forbidden 59＝ペア被覆 100%）と、下段の因子・水準エディタ。](assets/Screenshot_Coverage.png)
 
 ## A DSL you can use directly / そのまま使える DSL
 
