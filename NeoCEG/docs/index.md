@@ -114,6 +114,8 @@ Click a link to open the sample directly in NeoCEG. / リンクをクリック�
 
 - [Admission Fee / 入場料金 (JA)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Admissionfee_jp.nceg)
 - [Admission Fee (EN)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Admissionfee_en.nceg)
+- [Medical Insurance Underwriting / 医療保険引受判定 (JA)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OneReqMask-medical_insurance_underwriting_jp.nceg)
+- [Medical Insurance Underwriting (EN)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OneReqMask-medical_insurance_underwriting_en.nceg)
 - [Printer Print Options / プリンタ印刷設定 (JA)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OneMask-printer_print_options_jp.nceg)
 - [Printer Print Options (EN)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OneMask-printer_print_options_en.nceg)
 - [Copy/Paste Operation / コピー＆ペースト操作 (JA)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/ReqMask-copy_paste_operation_jp.nceg)

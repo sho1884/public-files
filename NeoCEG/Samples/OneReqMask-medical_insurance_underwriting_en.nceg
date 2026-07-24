@@ -1,0 +1,92 @@
+# NeoCEG Graph Definition
+# Medical insurance underwriting (main contract classification + disability-income rider decision)
+# A real-world example with ONE / REQ / MASK and several results that hold
+# concurrently and independently (main contract + rider).
+
+# Propositions
+Age_18to64 : "Age = 18-64"
+Age_65to74 : "Age = 65-74"
+Age_75plus : "Age = 75 or older"
+
+Treatment_None : "Current treatment = None"
+Treatment_Ongoing : "Current treatment = Ongoing"
+
+Hospitalization_None : "Hospitalization in last 5 years = None"
+Hospitalization_Yes : "Hospitalization in last 5 years = Yes"
+
+SinceDischarge_Under2y : "Time since discharge = Under 2 years"
+SinceDischarge_2yOrMore : "Time since discharge = 2 years or more"
+
+Employment_Employed : "Employment = Employed"
+Employment_NotEmployed : "Employment = Not employed"
+
+JobRisk_Normal : "Occupational risk = Normal"
+JobRisk_Hazardous : "Occupational risk = Hazardous"
+
+DisabilityRider_Decline : "Disability-income rider = Not selected"
+DisabilityRider_Select : "Disability-income rider = Selected"
+
+# Logical Relations
+EligibleAge := Age_18to64 OR Age_65to74
+RecentHospitalization := Hospitalization_Yes AND SinceDischarge_Under2y
+HazardousJob := Employment_Employed AND JobRisk_Hazardous
+IndividualReviewFactor := Treatment_Ongoing OR RecentHospitalization OR HazardousJob
+
+Main_AutoAccept := EligibleAge AND NOT IndividualReviewFactor
+Main_IndividualReview := EligibleAge AND IndividualReviewFactor
+Main_Decline := Age_75plus
+
+MainResult_AutoAccept := Main_AutoAccept
+MainResult_IndividualReview := Main_IndividualReview
+MainResult_Decline := Main_Decline
+
+Rider_NotApplicable := DisabilityRider_Decline
+Rider_Approved := DisabilityRider_Select AND Main_AutoAccept
+Rider_Pending := DisabilityRider_Select AND Main_IndividualReview
+Rider_Declined := DisabilityRider_Select AND Main_Decline
+
+# Constraints
+ONE(Age_18to64, Age_65to74, Age_75plus)
+ONE(Treatment_None, Treatment_Ongoing)
+ONE(Hospitalization_None, Hospitalization_Yes)
+ONE(SinceDischarge_Under2y, SinceDischarge_2yOrMore)
+ONE(Employment_Employed, Employment_NotEmployed)
+ONE(JobRisk_Normal, JobRisk_Hazardous)
+ONE(DisabilityRider_Decline, DisabilityRider_Select)
+
+REQ(DisabilityRider_Select -> Employment_Employed)
+MASK(Hospitalization_None -> SinceDischarge_Under2y, SinceDischarge_2yOrMore)
+MASK(Employment_NotEmployed -> JobRisk_Normal, JobRisk_Hazardous)
+
+# Layout
+@layout {
+  Age_18to64: (80, 60)
+  Age_65to74: (80, 150)
+  Age_75plus: (80, 240)
+  Treatment_None: (80, 360)
+  Treatment_Ongoing: (80, 450)
+  Hospitalization_None: (80, 570)
+  Hospitalization_Yes: (80, 660)
+  SinceDischarge_Under2y: (80, 780)
+  SinceDischarge_2yOrMore: (80, 870)
+  Employment_Employed: (80, 990)
+  Employment_NotEmployed: (80, 1080)
+  JobRisk_Normal: (80, 1200)
+  JobRisk_Hazardous: (80, 1290)
+  DisabilityRider_Decline: (80, 1410)
+  DisabilityRider_Select: (80, 1500)
+  EligibleAge: (520, 150)
+  RecentHospitalization: (520, 720)
+  HazardousJob: (520, 1140)
+  IndividualReviewFactor: (820, 700)
+  Main_AutoAccept: (1120, 150)
+  Main_IndividualReview: (1120, 330)
+  Main_Decline: (1120, 510)
+  MainResult_AutoAccept: (1460, 150)
+  MainResult_IndividualReview: (1460, 330)
+  MainResult_Decline: (1460, 510)
+  Rider_NotApplicable: (1460, 720)
+  Rider_Approved: (1460, 900)
+  Rider_Pending: (1460, 1080)
+  Rider_Declined: (1460, 1260)
+}
