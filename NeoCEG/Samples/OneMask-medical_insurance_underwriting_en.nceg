@@ -1,52 +1,54 @@
 # NeoCEG Graph Definition
 # Medical insurance underwriting (main-contract classification + disability-income rider decision)
 # Screen-faithful definitive version:
-#   - Both results (main contract AND rider) are terminal Effects — the screen
-#     shows two result fields.
-#   - Every conditionally-shown input (post-discharge period / occupational risk /
-#     rider) is expressed with MASK, not REQ, because the screen HIDES the field
-#     ("shown only when ...").
-# A real-world example with ONE / MASK and several results that hold concurrently.
+#   - Both results (main contract AND rider) are terminal Effects — the screen shows two result fields.
+#   - Every conditionally-shown input (post-discharge period / occupational risk / rider) uses MASK,
+#     not REQ, because the screen HIDES the field when its condition is not met.
 
 # Propositions
-Age_18to64 : "Age = 18-64"
-Age_65to74 : "Age = 65-74"
-Age_75plus : "Age = 75 or older"
-
-Treatment_None : "Current treatment = None"
-Treatment_Ongoing : "Current treatment = Ongoing"
-
-Hospitalization_None : "Hospitalization in last 5 years = None"
-Hospitalization_Yes : "Hospitalization in last 5 years = Yes"
-
-SinceDischarge_Under2y : "Time since discharge = Under 2 years"
-SinceDischarge_2yOrMore : "Time since discharge = 2 years or more"
-
-Employment_Employed : "Employment = Employed"
-Employment_NotEmployed : "Employment = Not employed"
-
-JobRisk_Normal : "Occupational risk = Normal"
-JobRisk_Hazardous : "Occupational risk = Hazardous"
-
-Rider_NotAttached : "Disability-income rider = Not attached"
-Rider_Attached : "Disability-income rider = Attached"
+Age_18to64: "Age = 18-64"
+Age_65to74: "Age = 65-74"
+Age_75plus: "Age = 75 or older"
+Treatment_None: "Current treatment = None"
+Treatment_Ongoing: "Current treatment = Ongoing"
+Hospitalization_None: "Hospitalization in last 5 years = None"
+Hospitalization_Yes: "Hospitalization in last 5 years = Yes"
+SinceDischarge_Under2y: "Time since discharge = Under 2 years"
+SinceDischarge_2yOrMore: "Time since discharge = 2 years or more"
+Employment_Employed: "Employment = Employed"
+Employment_NotEmployed: "Employment = Not employed"
+JobRisk_Normal: "Occupational risk = Normal"
+JobRisk_Hazardous: "Occupational risk = Hazardous"
+Rider_NotAttached: "Disability-income rider = Not attached"
+Rider_Attached: "Disability-income rider = Attached"
+EligibleAge: "EligibleAge"
+RecentHospitalization: "RecentHospitalization"
+HazardousJob: "HazardousJob"
+IndividualReviewFactor: "IndividualReviewFactor"
+Main_AutoAccept: "Main_AutoAccept"
+Main_IndividualReview: "Main_IndividualReview"
+Main_Decline: "Main_Decline"
+RiderApplicationValid: "RiderApplicationValid"
+MainResult_AutoAccept: "MainResult_AutoAccept"
+MainResult_IndividualReview: "MainResult_IndividualReview"
+MainResult_Decline: "MainResult_Decline"
+RiderJudgment_NotApplicable: "RiderJudgment_NotApplicable"
+RiderJudgment_Approved: "RiderJudgment_Approved"
+RiderJudgment_Pending: "RiderJudgment_Pending"
+RiderJudgment_Declined: "RiderJudgment_Declined"
 
 # Logical Relations
 EligibleAge := Age_18to64 OR Age_65to74
 RecentHospitalization := Hospitalization_Yes AND SinceDischarge_Under2y
 HazardousJob := Employment_Employed AND JobRisk_Hazardous
 IndividualReviewFactor := Treatment_Ongoing OR RecentHospitalization OR HazardousJob
-
 Main_AutoAccept := EligibleAge AND NOT IndividualReviewFactor
 Main_IndividualReview := EligibleAge AND IndividualReviewFactor
 Main_Decline := Age_75plus
-
 RiderApplicationValid := Employment_Employed AND Rider_Attached
-
 MainResult_AutoAccept := Main_AutoAccept
 MainResult_IndividualReview := Main_IndividualReview
 MainResult_Decline := Main_Decline
-
 RiderJudgment_NotApplicable := NOT RiderApplicationValid
 RiderJudgment_Approved := Main_AutoAccept AND RiderApplicationValid
 RiderJudgment_Pending := Main_IndividualReview AND RiderApplicationValid
@@ -60,7 +62,6 @@ ONE(SinceDischarge_Under2y, SinceDischarge_2yOrMore)
 ONE(Employment_Employed, Employment_NotEmployed)
 ONE(JobRisk_Normal, JobRisk_Hazardous)
 ONE(Rider_NotAttached, Rider_Attached)
-
 MASK(Hospitalization_None -> SinceDischarge_Under2y, SinceDischarge_2yOrMore)
 MASK(Employment_NotEmployed -> JobRisk_Normal, JobRisk_Hazardous)
 MASK(Employment_NotEmployed -> Rider_Attached, Rider_NotAttached)
@@ -85,11 +86,11 @@ MASK(Employment_NotEmployed -> Rider_Attached, Rider_NotAttached)
   EligibleAge: (520, 150)
   RecentHospitalization: (520, 720)
   HazardousJob: (520, 1140)
-  RiderApplicationValid: (520, 1470)
   IndividualReviewFactor: (820, 700)
   Main_AutoAccept: (1120, 150)
   Main_IndividualReview: (1120, 330)
   Main_Decline: (1120, 510)
+  RiderApplicationValid: (520, 1470)
   MainResult_AutoAccept: (1480, 150)
   MainResult_IndividualReview: (1480, 330)
   MainResult_Decline: (1480, 510)
@@ -97,4 +98,14 @@ MASK(Employment_NotEmployed -> Rider_Attached, Rider_NotAttached)
   RiderJudgment_Approved: (1480, 940)
   RiderJudgment_Pending: (1480, 1120)
   RiderJudgment_Declined: (1480, 1300)
+  c0: (-30, 150)
+  c1: (-30, 405)
+  c2: (-30, 615)
+  c3: (-30, 825)
+  c4: (-15, 1020)
+  c5: (-15, 1230)
+  c6: (-30, 1455)
+  c7: (-165, 570)
+  c8: (-210, 1215)
+  c9: (-210, 1080)
 }
