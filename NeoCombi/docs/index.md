@@ -67,6 +67,16 @@ both English and Japanese / 各例題は英語版・日本語版の両方があ�
 - **Shopping site / ショッピング** — a mask level (`_MASK_`) + several constraints —
   [EN](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/shopping-en.ncombi) ·
   [JA](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/shopping.ncombi)
+- **Medical insurance underwriting / 医療保険 引受判定** — a `.ncproj` project that ships its results:
+  13 pairwise cases (covered 125 / missed 0 / forbidden 13) plus the 648-row decision table (90 valid,
+  558 forbidden). Its subject is the input side of the
+  [ENISHI Life application simulator](https://modellogue.com/medical-underwriting/), where three fields
+  exist on screen only under a condition — each pinned by a `= "_MASK_"` / `<> "_MASK_"` constraint pair.
+  同一仕様を姉妹ツール **NeoCEG** でも公開しています（原因結果グラフ）ので、読み比べてください
+  ([JA](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OneMask-medical_insurance_underwriting_jp.nceg) ·
+  [EN](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OneMask-medical_insurance_underwriting_en.nceg)) —
+  [EN](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/medical-underwriting-en.ncproj) ·
+  [JA](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/medical-underwriting.ncproj)
 - **Multifunction printer / 複合機（とじしろ）** — binding-margin geometry: valid gutters depend on orientation × duplex —
   [EN](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/mfp-en.ncombi) ·
   [JA](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/mfp.ncombi)
