@@ -473,13 +473,41 @@ Infeasible and untestable rows are displayed with a gray background across the e
 
 | Marker / マーカー | Display / 表示 | Meaning / 意味 |
 |---|---|---|
-| Adopted / 採択 | **#** (blue bold) | First test rule to cover this expression / この式を最初にカバーするルール |
+| Primary / 主義務 | **@** (green bold) | The rule was generated to verify this expression / この式を検証するために作られたルール |
+| Adopted / 採択 | **#** (blue bold) | First rule to cover this expression, without being made for it / この式を最初にカバーしたルール（そのために作られたのではない） |
 | Covered / カバー済み | **x** (green) | Additional rule covering an already-covered expression / 既にカバー済みの式をさらにカバーするルール |
 | Not covered / 未カバー | (blank) | Rule does not exercise this expression / このルールはこの式を検証しない |
 | Infeasible / 実行不能 | **!** (red) | Expression can never be tested due to constraint violations / 制約違反のため検証不可 |
 | Untestable / テスト不能 | **?** (amber) | Expression is untestable due to MASK constraint (result is I) / MASK制約によりテスト不能 |
+| Unobservable / 観測不能 | **>** (orange) | The value never reaches an effect, so no rule can decide it / 値が結果ノードに届かないため、どのルールでも合否を判定できない |
+
+> **`#` and `x` mean verified / `#`・`x` は「検証できた」の意味**: a rule is marked only when the
+> value under test reaches an effect and you can decide pass or fail from the result. A rule whose
+> value is blocked further downstream leaves the cell blank. /
+> マーカーが付くのは、検証対象の値が結果ノードに届き、結果から合否を判定できる場合だけです。
+> 値が下流で遮断されているルールは空欄になります。
 
 > **Note**: The coverage table's infeasible marker is `!` (not `-`). The hyphen `-` is reserved for the **decision table's** don't-care cells (§7.2), so the two tables never use the same glyph for different meanings. / カバレッジ表の実行不能は `!`。ハイフン `-` は**デシジョンテーブル**の不問セル（§7.2）に予約されており、両表で同じ字形が別の意味になることはありません。
+
+### 8.3.1 Purpose Row / 目的行
+
+The last row of the **coverage table** says **why each column exists**: the obligation it was
+generated for, the node it observes and the effect it observes it at. Every column is listed, weak
+ones included, because this table explains how the decision table came to look the way it does.
+The decision table does not carry this row: it names expression numbers such as `Expr.27`, and what
+those require is written only here. /
+**カバレッジ表**の最終行に、**各列が存在する理由**を示します（生成の元になった義務、観測対象
+ノード、観測先の結果ノード）。**弱テストを含む全列**が対象です。この表が、決定表がその形に
+なった経緯を説明するからです。決定表にはこの行を置きません。`Expr.27` のような式番号が何を
+要求するかは、この表にしか書かれていないためです。
+
+```
+目的  Expr.27 個別審査要因_あり → 主契約引受結果_自動引受
+      MASK(就業状態_非就業 → 職業危険度_通常, 職業危険度_危険)
+```
+
+It is the **last** row, so no existing row changes position. /
+**最終行**に置くため、既存の行の位置は変わりません。
 
 ### 8.4 Status and Reason Columns / Status・Reason 列
 
@@ -488,6 +516,7 @@ Infeasible and untestable rows are displayed with a gray background across the e
 | (empty) | (empty) | Normal / 通常 |
 | Infeasible | `ONE(A, B, C)`, `EXCL(X, Y)`, `REQ(A → B)` | Gray background / グレー背景 |
 | Untestable | `MASK(X → Y, Z)` | Gray background / グレー背景 |
+| Blocked / 遮断 | `遮断` | Light orange background / 薄橙背景 |
 
 The **Reason** column shows the specific constraint that caused the expression to be infeasible or untestable, using node identifiers (e.g., `p1`, `p2`). These identifiers can be cross-referenced with the ID column in the decision table (§7.1) or the column headers in the coverage table. For directional constraints (REQ/MASK), the arrow notation (`→`) indicates the source/trigger and targets.
 
@@ -499,9 +528,14 @@ The status bar shows: `N rules | X% coverage (covered/total)`
 
 ステータスバーに表示：`N rules | X% coverage (covered/total)`
 
-Coverage percentage excludes infeasible and untestable expressions from the denominator: `covered / (total - infeasible - untestable)`.
+Coverage percentage counts **every** expression: `covered / total`. Expressions that no rule can
+discharge are shown as a breakdown next to the rate (for example `3 infeasible`), so a gap stays
+visible instead of disappearing from the denominator. A model with infeasible expressions therefore
+does not reach 100%, and the breakdown says why.
 
-カバレッジ率は分母から実行不能・テスト不能を除外：`covered / (total - infeasible - untestable)`
+カバレッジ率は**全論理式**を分母に数えます：`covered / total`。どのルールでも果たせない論理式は
+率の横に内訳（例 `3 infeasible`）として表示されるため、漏れが分母から消えることはありません。
+実行不能な論理式があるモデルは 100% に到達せず、その理由が内訳に出ます。
 
 ---
 
@@ -854,4 +888,6 @@ This warning appears when you have unsaved changes. Your work is still in the br
 |---|---|
 | 2026-03-01 | Initial version / 初版作成 |
 | 2026-06-14 | Update for current app: node display = proposition + expression tooltip (§4.3); `factor = level` naming convention (§10.4); Validity Warnings (§7.6) and Skeleton tab (§7.7); dual-format table Copy (§11.7); offline Copy/Download DSL Grammar (§3.3, §11.9); five bottom-panel tabs / 現行アプリへ更新：ノード表示＝命題＋式ツールチップ（§4.3）、`factor = level` 命名規約（§10.4）、妥当性警告（§7.6）・Skeleton タブ（§7.7）、表の2形式コピー（§11.7）、オフライン Copy/Download DSL Grammar（§3.3・§11.9）、下部パネル5タブ |
+| 2026-09-02 | Each column now says why it exists: a Purpose row at the end of the coverage table, and the `@` marker for the expression a rule was generated for (§8.3, §8.3.1) / 各列の存在理由を表示：両表の末尾に目的行、生成の元になった論理式に `@` |
+| 2026-09-02 | Coverage markers now assert verification: `#`/`x` appear only when the value reaches an effect; added the Unobservable marker `>`; the coverage rate counts every expression and shows the breakdown (§8.3, §8.5) / カバレッジマーカーは検証できたことの表明に：値が結果に届く場合のみ `#`・`x` が付く。観測不能 `>` を追加。カバレッジ率は全論理式を分母とし内訳を併記（§8.3, §8.5） |
 | 2026-07-24 | Symbol alignment: decision-table don't-care cell = `-` (§7.2); coverage-table infeasible marker = `!` (was `-`), so the two tables never share a glyph (§8.3) / 記号統一：DTの不問セル＝`-`（§7.2）、カバレッジの実行不能＝`!`（旧 `-`）。両表で字形が衝突しない（§8.3） |
