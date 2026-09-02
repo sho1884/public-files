@@ -83,7 +83,12 @@ both English and Japanese / 各例題は英語版・日本語版の両方があ�
 - **Copier N-up & zoom / 複合機（N-up・倍率）** — when a hidden control needs a `_MASK_` level, and when a locked field is just a fixed value —
   [EN](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/mfp-zoom-en.ncombi) ·
   [JA](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/mfp-zoom.ncombi)
-- **Admission fee / 入館料** — a decision table: inputs determine the fee, enforced by constraints (the fee is an expected-result factor) —
+- **Admission fee / 入館料** — a decision table: inputs determine the fee, enforced by constraints
+  (the fee is an expected-result factor). The same specification is **also a NeoCEG cause-effect
+  graph** — there the fee is five terminal effects, here it is a five-level factor; both pin one fee
+  to each of the 16 input combinations. 同一仕様が NeoCEG にもあります
+  ([JA](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Admissionfee_jp.nceg) ·
+  [EN](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Admissionfee_en.nceg)) —
   [EN](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/admission-fee-en.ncombi) ·
   [JA](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/admission-fee.ncombi)
 - **Browsers / ブラウザ** — small pairwise model —
@@ -98,3 +103,12 @@ both English and Japanese / 各例題は英語版・日本語版の両方があ�
 NeoCombi has a sibling test-design tool,
 [NeoCEG](https://github.com/sho1884/NeoCEG) (cause-effect graphs). Both are
 deterministic converters with no embedded AI.
+
+Two of the samples above — **admission fee** and **medical insurance underwriting** —
+exist in both tools, built from the same specification. Reading a pair side by side
+shows what each tool makes explicit: NeoCEG the logic that derives the outcome,
+NeoCombi the input space and the combinations worth trying.
+
+上の例のうち**入館料**と**医療保険 引受判定**は、同じ仕様から両ツールで作ってあります。
+対で読むと、NeoCEG が結果を導く論理を、NeoCombi が入力空間と試すべき組み合わせを、
+それぞれ明示していることが分かります。
