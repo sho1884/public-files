@@ -114,14 +114,39 @@ Click a link to open the sample directly in NeoCEG. / リンクをクリック�
 
 - [Admission Fee / 入場料金 (JA)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Admissionfee_jp.nceg)
 - [Admission Fee (EN)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Admissionfee_en.nceg)
+    - Also in **NeoCombi**, from the same specification: [JA](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/admission-fee.ncombi) / [EN](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/admission-fee-en.ncombi) — see [Sibling tools](#sibling-tools--姉妹ツール) / 同じ仕様を **NeoCombi** でも
 - [Medical Insurance Underwriting / 医療保険引受判定 (JA)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OneMask-medical_insurance_underwriting_jp.nceg)
 - [Medical Insurance Underwriting (EN)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OneMask-medical_insurance_underwriting_en.nceg)
+    - Also in **NeoCombi**, from the same specification: [JA](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/medical-underwriting.ncproj) / [EN](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/medical-underwriting-en.ncproj) — see [Sibling tools](#sibling-tools--姉妹ツール) / 同じ仕様を **NeoCombi** でも
+    - Practice site the specification describes / 仕様が記述している演習サイト: [ENISHI Life application simulator](https://modellogue.com/medical-underwriting/)
 - [Printer Print Options / プリンタ印刷設定 (JA)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OneMask-printer_print_options_jp.nceg)
 - [Printer Print Options (EN)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OneMask-printer_print_options_en.nceg)
 - [Copy/Paste Operation / コピー＆ペースト操作 (JA)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/ReqMask-copy_paste_operation_jp.nceg)
 - [Copy/Paste Operation (EN)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/ReqMask-copy_paste_operation_en.nceg)
 - [Windows Folder Option / Windowsフォルダオプション (JA)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Windows-Folder-Option.nceg)
 - [Windows Folder Option (EN)](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Windows-Folder-Option_en.nceg)
+
+## Sibling tools / 姉妹ツール
+
+NeoCEG has a sibling test-design tool, [NeoCombi](https://sho1884.github.io/public-files/NeoCombi/)
+(combinatorial testing). Both are deterministic converters with no embedded AI.
+
+Two of the samples above — **admission fee** and **medical insurance underwriting** — exist in both
+tools, built from the same specification. Reading a pair side by side shows what each tool makes
+explicit: NeoCEG the logic that derives the outcome, NeoCombi the input space and the combinations
+worth trying.
+
+NeoCEG には姉妹ツール [NeoCombi](https://sho1884.github.io/public-files/NeoCombi/)（組み合わせテスト）が
+あります。どちらも AI を内蔵しない決定的なコンバータです。
+
+上の例のうち**入場料金**と**医療保険引受判定**は、同じ仕様から両ツールで作ってあります。
+対で読むと、NeoCEG が結果を導く論理を、NeoCombi が入力空間と試すべき組み合わせを、
+それぞれ明示していることが分かります。
+
+| Example / 例 | NeoCEG | NeoCombi |
+|---|---|---|
+| Admission fee / 入場料金 | [JA](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Admissionfee_jp.nceg) / [EN](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Admissionfee_en.nceg) | [JA](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/admission-fee.ncombi) / [EN](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/admission-fee-en.ncombi) |
+| Medical insurance underwriting / 医療保険引受判定 | [JA](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OneMask-medical_insurance_underwriting_jp.nceg) / [EN](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OneMask-medical_insurance_underwriting_en.nceg) | [JA](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/medical-underwriting.ncproj) / [EN](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/medical-underwriting-en.ncproj) |
 
 ## Reference / 参考文献
 
