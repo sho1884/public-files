@@ -128,20 +128,24 @@ Click a link to open the sample directly in NeoCEG. / リンクをクリック�
 
 ## Sibling tools / 姉妹ツール
 
-NeoCEG has a sibling test-design tool, [NeoCombi](https://sho1884.github.io/public-files/NeoCombi/)
-(combinatorial testing). Both are deterministic converters with no embedded AI.
+NeoCEG is one of **three tools** that share a text design source and one coherent architecture,
+introduced together at **[modellogue.com](https://modellogue.com/)**:
+
+NeoCEG は、テキストの設計ソースと統一感のある構成思想でつながる**3つのツール**の一つです。
+まとめて **[modellogue.com](https://modellogue.com/)** で紹介しています。
+
+| Tool | What it makes explicit / 何を明示するか |
+|---|---|
+| [ModelLogue](https://modellogue.com/app) | State machines, SysML requirement and process diagrams, designed and reviewed in dialogue with AI; N-switch tests from a state machine / 状態遷移・SysML の要求図とプロセス図を AI との対話で設計・レビュー。状態遷移から N スイッチテストを生成 |
+| **NeoCEG** (this tool / 本ツール) | The logic that derives an outcome, as a cause-effect graph → decision table / 結果を導く論理を、原因結果グラフ → デシジョンテーブルとして |
+| [NeoCombi](https://sho1884.github.io/public-files/NeoCombi/) | The input space and the combinations worth trying / 入力空間と、試すべき組み合わせ |
 
 Two of the samples above — **admission fee** and **medical insurance underwriting** — exist in both
-tools, built from the same specification. Reading a pair side by side shows what each tool makes
-explicit: NeoCEG the logic that derives the outcome, NeoCombi the input space and the combinations
-worth trying.
+NeoCEG and NeoCombi, built from the same specification. Reading a pair side by side shows what each
+tool makes explicit.
 
-NeoCEG には姉妹ツール [NeoCombi](https://sho1884.github.io/public-files/NeoCombi/)（組み合わせテスト）が
-あります。どちらも AI を内蔵しない決定的なコンバータです。
-
-上の例のうち**入場料金**と**医療保険引受判定**は、同じ仕様から両ツールで作ってあります。
-対で読むと、NeoCEG が結果を導く論理を、NeoCombi が入力空間と試すべき組み合わせを、
-それぞれ明示していることが分かります。
+上の例のうち**入場料金**と**医療保険引受判定**は、同じ仕様から NeoCEG と NeoCombi の両方で
+作ってあります。対で読むと、それぞれのツールが何を明示するのかが分かります。
 
 | Example / 例 | NeoCEG | NeoCombi |
 |---|---|---|
@@ -154,6 +158,8 @@ NeoCEG には姉妹ツール [NeoCombi](https://sho1884.github.io/public-files/N
 - [ISO/IEC/IEEE 29119-4:2021](https://www.iso.org/standard/79430.html) "Software and systems engineering — Software testing — Part 4: Test techniques"
 - 秋山浩一 [『ソフトウェアテスト技法ドリル【第2版】』](https://www.juse-p.co.jp/products/view/934) 日科技連出版社 — Software Test Technique Drill, 2nd Edition
 - 加瀬正樹 [CEGTest](http://softest.cocolog-nifty.com/blog/cegtest.html) — The original CEG test design tool
+- sho1884 [AIで「世界一難しいテスト技法」の敷居を下げる──面倒だった原因結果グラフ法をお手軽に](https://codezine.jp/article/detail/28931) (CodeZine / DeveloperZine) — Lowering the barrier to "the world's hardest test technique": cause-effect graphing made practical
+- sho1884 [状態遷移表はなぜ必要か？「制約」から見える原因結果グラフ法の真価と、論理関係との境界線](https://codezine.jp/article/detail/28939) (CodeZine / DeveloperZine) — Why a state transition table is needed: what constraints reveal about cause-effect graphing, and where logic ends
 - sho1884 [ブールグラフでロジックを整理してデシジョンテーブルと条件式を自動生成する](https://note.com/sho1884/n/n4afa22873334) (note) — Organizing Logic with Boolean Graphs to Auto-Generate Decision Tables and Conditional Expressions
 - sho1884 [ロジックとアーキテクチャの境界を設計する（その１）](https://note.com/sho1884/n/n372d4dbf49dc) (note) — Designing the Boundary Between Logic and Architecture (Part 1)
 - sho1884 [原因結果グラフ法がテストを減らすときの「考え方」](https://qiita.com/sho1884/items/f2b3a887546e87bb734a) (Qiita) — The Concept Behind How Cause-Effect Graphing Reduces Tests
