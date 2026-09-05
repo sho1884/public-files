@@ -21,6 +21,10 @@ your browser.
 [Try the demo / デモを試す](https://neo-combi.vercel.app/){ .md-button .md-button--primary }
 [User Manual](User_Manual.md){ .md-button }
 [Deployment Guide](Deployment_Guide.md){ .md-button }
+[Source code / ソースコード](https://github.com/sho1884/NeoCombi){ .md-button }
+
+Source: [github.com/sho1884/NeoCombi](https://github.com/sho1884/NeoCombi) — MIT licensed, issues and pull
+requests welcome. / ソースは [github.com/sho1884/NeoCombi](https://github.com/sho1884/NeoCombi)（MIT ライセンス）。
 
 ## The app at a glance / 画面の全体像
 
