@@ -100,15 +100,26 @@ both English and Japanese / 各例題は英語版・日本語版の両方があ�
 
 ## Sibling tools / 姉妹ツール
 
-NeoCombi has a sibling test-design tool,
-[NeoCEG](https://github.com/sho1884/NeoCEG) (cause-effect graphs). Both are
-deterministic converters with no embedded AI.
+NeoCombi is one of **three tools** that share a text design source and one coherent architecture,
+introduced together at **[modellogue.com](https://modellogue.com/)**:
 
-Two of the samples above — **admission fee** and **medical insurance underwriting** —
-exist in both tools, built from the same specification. Reading a pair side by side
-shows what each tool makes explicit: NeoCEG the logic that derives the outcome,
-NeoCombi the input space and the combinations worth trying.
+NeoCombi は、テキストの設計ソースと統一感のある構成思想でつながる**3つのツール**の一つです。
+まとめて **[modellogue.com](https://modellogue.com/)** で紹介しています。
 
-上の例のうち**入館料**と**医療保険 引受判定**は、同じ仕様から両ツールで作ってあります。
-対で読むと、NeoCEG が結果を導く論理を、NeoCombi が入力空間と試すべき組み合わせを、
-それぞれ明示していることが分かります。
+| Tool | What it makes explicit / 何を明示するか |
+|---|---|
+| [ModelLogue](https://modellogue.com/app) | State machines, SysML requirement and process diagrams, designed and reviewed in dialogue with AI; N-switch tests from a state machine / 状態遷移・SysML の要求図とプロセス図を AI との対話で設計・レビュー。状態遷移から N スイッチテストを生成 |
+| [NeoCEG](https://sho1884.github.io/public-files/NeoCEG/) | The logic that derives an outcome, as a cause-effect graph → decision table / 結果を導く論理を、原因結果グラフ → デシジョンテーブルとして |
+| **NeoCombi** (this tool / 本ツール) | The input space and the combinations worth trying / 入力空間と、試すべき組み合わせ |
+
+Two of the samples above — **admission fee** and **medical insurance underwriting** — exist in both
+NeoCombi and NeoCEG, built from the same specification. Reading a pair side by side shows what each
+tool makes explicit.
+
+上の例のうち**入館料**と**医療保険 引受判定**は、同じ仕様から NeoCombi と NeoCEG の両方で
+作ってあります。対で読むと、それぞれのツールが何を明示するのかが分かります。
+
+| Example / 例 | NeoCombi | NeoCEG |
+|---|---|---|
+| Admission fee / 入館料 | [JA](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/admission-fee.ncombi) / [EN](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/admission-fee-en.ncombi) | [JA](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Admissionfee_jp.nceg) / [EN](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/Admissionfee_en.nceg) |
+| Medical insurance underwriting / 医療保険 引受判定 | [JA](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/medical-underwriting.ncproj) / [EN](https://neo-combi.vercel.app/?file=https://sho1884.github.io/public-files/NeoCombi/Samples/medical-underwriting-en.ncproj) | [JA](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OneMask-medical_insurance_underwriting_jp.nceg) / [EN](https://neo-ceg.vercel.app/?file=https://sho1884.github.io/public-files/NeoCEG/Samples/OneMask-medical_insurance_underwriting_en.nceg) |
