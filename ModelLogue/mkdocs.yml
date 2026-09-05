@@ -6,6 +6,8 @@ site_description: >-
   diagram + table pattern. / ModelLogue はモデルレビューを支援するツールです。
   状態遷移図・要求図・プロセス図の 3 つのモデル型を、テキスト → 正規モデル → 図＋表
   のパターンでレビューします。
+repo_url: https://github.com/sho1884/ModelLogue
+repo_name: sho1884/ModelLogue
 docs_dir: docs
 
 theme:
@@ -40,6 +42,11 @@ markdown_extensions:
   - toc:
       permalink: true
   - meta
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/sho1884/ModelLogue
 
 nav:
   - Getting started & common features / はじめに・共通操作: index.md
